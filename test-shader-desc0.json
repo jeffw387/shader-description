@@ -1,0 +1,34 @@
+{
+  "structures": [
+    {
+      "struct_name": "Camera",
+      "members": [
+        {
+          "member_name": "view",
+          "member_type": "mat4"
+        },
+        {
+          "member_name": "projection",
+          "member_type": "mat4"
+        }
+      ]
+    }
+  ],
+  "uniform_buffer_blocks": [
+    {
+      "block_name": "CameraBlock",
+      "instance_name": "camera",
+      "dynamic": false,
+      "members": [
+        {
+          "member_name": "matrix",
+          "type": "#structures::Camera"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "samplers": [],
+  "input_attachments": [],
+  "push_constants": []
+}

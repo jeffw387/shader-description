@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "shader-desc.schema.json",
+  "title": "Shader description",
+  "description": "A schema for describing a vulkan shader in json",
+  "type": "object",
+  "properties": {
+    "structures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/struct_member"
+      }
+    },
+    "uniform_buffer_blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "struct_name": {
+            "type": "string"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/definitions/struct_member"
+            }
+          }
+        },
+        "required": ["struct_name", "members"]
+      }
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "image_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "samplers": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "input_attachments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "push_constants": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "structures",
+    "uniform_buffer_blocks",
+    "images",
+    "samplers",
+    "input_attachments",
+    "push_constants"
+  ],
+
+  "definitions":{
+    "struct_member": {},
+    "built-in": {
+      "enum": []
+    }
+  }
+},
