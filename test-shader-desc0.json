@@ -64,6 +64,24 @@
           "member_count": 1
         }
       ]
+    },
+    {
+      "binding": 4,
+      "set": 4,
+      "block_name": "InstanceBlock",
+      "buffer_type": "uniform",
+      "dynamic": true,
+      "instance_name": "instanceBlock",
+      "members": [
+        {
+          "member_name": "model",
+          "member_type": {
+            "type_name": "mat4",
+            "align": 64
+          },
+          "member_count": 1
+        }
+      ]
     }
   ],
   "images": [],
