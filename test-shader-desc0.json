@@ -1,28 +1,67 @@
 {
-  "structures": [
+  "$schema": "http://jw387.com/schemas/shader-desc.schema.json",
+  "shader_stage": "Vertex",
+  "structures": [],
+  "inputs": [
     {
-      "struct_name": "Camera",
-      "members": [
-        {
-          "member_name": "view",
-          "member_type": "mat4"
-        },
-        {
-          "member_name": "projection",
-          "member_type": "mat4"
-        }
-      ]
+      "input_name": "inPos",
+      "glsl_type": {
+        "type_name": "vec3",
+        "align": 16
+      },
+      "location": 0
+    },
+    {
+      "input_name": "inNormal",
+      "glsl_type": {
+        "type_name": "vec3",
+        "align": 16
+      },
+      "location": 1
     }
   ],
-  "uniform_buffer_blocks": [
+  "outputs": [
     {
+      "output_name": "outViewPos",
+      "glsl_type": {
+        "type_name": "vec3",
+        "align": 16
+      },
+      "location": 0
+    },
+    {
+      "output_name": "outViewNormal",
+      "glsl_type": {
+        "type_name": "vec3",
+        "align": 16
+      },
+      "location": 1
+    }
+  ],
+  "buffer_blocks": [
+    {
+      "binding": 3,
+      "set": 3,
       "block_name": "CameraBlock",
       "instance_name": "camera",
+      "buffer_type": "uniform",
       "dynamic": false,
       "members": [
         {
-          "member_name": "matrix",
-          "type": "#structures::Camera"
+          "member_name": "view",
+          "member_type": {
+            "type_name": "mat4",
+            "align": 64
+          },
+          "member_count": 1
+        },
+        {
+          "member_name": "projection",
+          "member_type": {
+            "type_name": "mat4",
+            "align": 64
+          },
+          "member_count": 1
         }
       ]
     }
@@ -30,5 +69,6 @@
   "images": [],
   "samplers": [],
   "input_attachments": [],
-  "push_constants": []
+  "push_constants": [],
+  "constants": []
 }

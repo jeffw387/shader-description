@@ -1,34 +1,141 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "shader-desc.schema.json",
+  "$id": "http://jw387.com/schemas/shader-desc.schema.json",
   "title": "Shader description",
   "description": "A schema for describing a vulkan shader in json",
   "type": "object",
   "properties": {
+    "shader_stage": {
+      "enum": [
+        "Vertex",
+        "Fragment"
+      ]
+    },
     "structures": {
       "type": "array",
       "items": {
         "type": "object",
-        "$ref": "#/definitions/struct_member"
+        "$ref": "#/definitions/structure"
       }
     },
-    "uniform_buffer_blocks": {
+    "inputs": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "struct_name": {
+          "input_name": {
             "type": "string"
           },
-          "members": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "$ref": "#/definitions/struct_member"
-            }
+          "glsl_type": {
+            "$ref": "#/definitions/data_type"
+          },
+          "location": {
+            "type": "number"
+          },
+          "modifiers": {
           }
         },
-        "required": ["struct_name", "members"]
+        "required": [
+          "input_name",
+          "glsl_type",
+          "location"
+        ]
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "output_name": {
+            "type": "string"
+          },
+          "glsl_type": {
+            "$ref": "#/definitions/data_type"
+          },
+          "location": {
+            "type": "number"
+          },
+          "modifiers": {
+            "enum": ["flat"]
+          }
+        },
+        "required": [
+          "output_name",
+          "glsl_type",
+          "location"
+        ]
+      }
+    },
+    "buffer_blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "block_name": {
+            "type": "string"
+          },
+          "instance_name": {
+            "type": "string"
+          },
+          "buffer_type": {
+            "enum": [
+              "uniform",
+              "storage"
+            ]
+          },
+          "dynamic": {
+            "type": "boolean"
+          },
+          "binding": {
+            "type": "number"
+          },
+          "set": {
+            "type": "number"
+          },
+          "members": {
+            "oneOf": [
+              {
+                "properties": {
+                  "structure_type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "structure_type"
+                ]
+              },
+              {
+                "properties": {
+                  "member_name": {
+                    "type": "string"
+                  },
+                  "member_type": {
+                    "type": "object",
+                    "$ref": "#/definitions/data_type"
+                  },
+                  "member_count": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "member_name",
+                  "member_type",
+                  "member_count"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "block_name",
+          "instance_name",
+          "buffer_type",
+          "dynamic",
+          "binding",
+          "set",
+          "members"
+        ]
       }
     },
     "images": {
@@ -38,14 +145,41 @@
         "properties": {
           "image_name": {
             "type": "string"
+          },
+          "image_type": {
+            "enum": [
+              "1D",
+              "2D",
+              "3D"
+            ]
+          },
+          "image_count": {
+            "type": "number"
           }
-        }
+        },
+        "required": [
+          "image_name",
+          "image_type",
+          "image_count"
+        ]
       }
     },
     "samplers": {
       "type": "array",
       "items": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "sampler_name": {
+            "type": "string"
+          },
+          "sampler_count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "sampler_name",
+          "sampler_count"
+        ]
       }
     },
     "input_attachments": {
@@ -54,26 +188,144 @@
         "type": "object"
       }
     },
+    "constants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "constant_name": {
+            "type": "string"
+          },
+          "specialization_id": {
+            "type": "number"
+          },
+          "glsl_type": {
+            "$ref": "#/definitions/data_type"
+          }
+        },
+        "required": [
+          "constant_name",
+          "glsl_type"
+        ]
+      }
+    },
     "push_constants": {
       "type": "array",
       "items": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "constant_name": {
+            "type": "string"
+          },
+          "glsl_type": {
+            "$ref": "#/definitions/data_type"
+          },
+          "offset": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "constant_name",
+          "glsl_type",
+          "offset"
+        ]
       }
     }
   },
   "required": [
+    "shader_stage",
     "structures",
-    "uniform_buffer_blocks",
+    "inputs",
+    "outputs",
+    "buffer_blocks",
     "images",
     "samplers",
     "input_attachments",
-    "push_constants"
+    "push_constants",
+    "constants"
   ],
-
-  "definitions":{
-    "struct_member": {},
-    "built-in": {
-      "enum": []
+  "definitions": {
+    "structure": {
+      "type": "object",
+      "properties": {
+        "struct_name": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "struct_member": {
+              "type": "object",
+              "properties": {
+                "member_name": {
+                  "type": "string"
+                },
+                "member_type": {
+                  "$ref": "#/definitions/data_type"
+                },
+                "element_count": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "member_name",
+                "member_type",
+                "element_count"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "struct_name",
+        "members"
+      ]
+    },
+    "data_type": {
+      "type": "object",
+      "properties": {
+        "type_name": {
+          "enum": [
+            "bool",
+            "int",
+            "uint",
+            "float",
+            "double",
+            "bvec2",
+            "bvec3",
+            "bvec4",
+            "ivec2",
+            "ivec3",
+            "ivec4",
+            "uvec2",
+            "uvec3",
+            "uvec4",
+            "vec2",
+            "vec3",
+            "vec4",
+            "dvec2",
+            "dvec3",
+            "dvec4",
+            "mat2",
+            "mat3",
+            "mat4",
+            "dmat2",
+            "dmat3",
+            "dmat4"
+          ]
+        },
+        "align": {
+          "enum": [
+            16,
+            64,
+            128
+          ]
+        }
+      },
+      "required": [
+        "glsl_name",
+        "align"
+      ]
     }
   }
-},
+}
