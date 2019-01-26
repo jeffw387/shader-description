@@ -94,37 +94,40 @@
             "type": "number"
           },
           "members": {
-            "oneOf": [
-              {
-                "properties": {
-                  "structure_type": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "structure_type"
-                ]
-              },
-              {
-                "properties": {
-                  "member_name": {
-                    "type": "string"
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "structure_type": {
+                      "type": "string"
+                    }
                   },
-                  "member_type": {
-                    "type": "object",
-                    "$ref": "#/definitions/data_type"
-                  },
-                  "member_count": {
-                    "type": "number"
-                  }
+                  "required": [
+                    "structure_type"
+                  ]
                 },
-                "required": [
-                  "member_name",
-                  "member_type",
-                  "member_count"
-                ]
-              }
-            ]
+                {
+                  "properties": {
+                    "member_name": {
+                      "type": "string"
+                    },
+                    "member_type": {
+                      "type": "object",
+                      "$ref": "#/definitions/data_type"
+                    },
+                    "member_count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "member_name",
+                    "member_type",
+                    "member_count"
+                  ]
+                }
+              ]
+            }
           }
         },
         "required": [
@@ -323,7 +326,7 @@
         }
       },
       "required": [
-        "glsl_name",
+        "type_name",
         "align"
       ]
     }
