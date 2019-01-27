@@ -5,7 +5,7 @@
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
-namespace glsl {
+namespace jshd {
 inline std::string make_output(
     std::string_view outputName,
     std::string_view typeName,
@@ -21,4 +21,4 @@ inline std::string make_output(json outputJson) {
 
   return make_output(outputName, typeName, location);
 }
-}  // namespace glsl
+}  // namespace jshd

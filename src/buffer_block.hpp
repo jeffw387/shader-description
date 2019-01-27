@@ -2,7 +2,7 @@
 #include <string_view>
 #include <string>
 
-namespace common {
+namespace jshd {
 enum class buffer_type { uniform, storage };
 
 inline buffer_type from_string(std::string_view value) {

@@ -2,22 +2,23 @@
 #include "make_buffer.hpp"
 
 using json = nlohmann::json;
+using namespace jshd;
 TEST_CASE("Make a string from a buffer description") {
   std::string desiredOutput =
       "layout(set = 3, binding = 3) uniform CameraBlock {\n"
       "  mat4 view;\n"
       "  mat4 projection;\n"
       "} camera;\n";
-  std::vector<common::data_type> members{
-      common::data_type{"view", "mat4", 64, 1},
-      common::data_type{"projection", "mat4", 64, 1}};
+  std::vector<data_type> members{
+      data_type{"view", "mat4", 64, 1},
+      data_type{"projection", "mat4", 64, 1}};
 
-  auto result = glsl::make_buffer(
+  auto result = make_glsl_buffer(
       3,
       3,
       "CameraBlock",
       "camera",
-      common::buffer_type::uniform,
+      buffer_type::uniform,
       false,
       members);
   REQUIRE(result == desiredOutput);
@@ -49,6 +50,6 @@ TEST_CASE("Json API output matches expected output") {
       "  }\n"
       "]\n"
       "}\n ");
-  auto result = glsl::make_buffer(testInput);
+  auto result = make_glsl_buffer(testInput);
   REQUIRE(result == desiredOutput);
 }

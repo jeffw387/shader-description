@@ -9,7 +9,14 @@ add_executable(json-shader-tests catchmain.cpp)
 target_link_libraries(json-shader-tests PRIVATE ${CONAN_LIBS})
 target_include_directories(json-shader-tests PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
-set(common-headers split_view.hpp glsl/make_buffer.hpp buffer_block.hpp)
+set(common-headers 
+  split_view.hpp 
+  buffer_block.hpp
+  glsl/make_buffer.hpp 
+  glsl/make_input.hpp
+  glsl/make_output.hpp
+  glsl/make_image.hpp
+  )
 target_sources(json-shader PUBLIC ${common-headers})
 target_sources(json-shader-tests PUBLIC 
   ${common-headers} 

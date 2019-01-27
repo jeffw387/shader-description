@@ -5,7 +5,7 @@
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
-namespace glsl {
+namespace jshd {
 std::string make_image(
   uint32_t set, 
     uint32_t binding, 

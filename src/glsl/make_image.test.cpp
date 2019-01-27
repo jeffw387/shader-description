@@ -3,7 +3,7 @@
 
 TEST_CASE("Create a glsl string for image descriptor(s)") {
   std::string desiredOutput = "layout(set = 1, binding = 1) uniform image2D myImage;";
-  auto result = glsl::make_image(
+  auto result = jshd::make_image(
     1,
     1,
     "image2D",
