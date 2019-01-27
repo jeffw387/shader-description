@@ -19,4 +19,4 @@ namespace common {
     uint32_t align;
     uint32_t memberCount;
   };
-}
+}  // namespace common
