@@ -180,6 +180,12 @@
       "items": {
         "type": "object",
         "properties": {
+          "binding": {
+            "type": "number"
+          },
+          "set": {
+            "type": "number"
+          },
           "sampler_name": {
             "type": "string"
           },
@@ -188,6 +194,8 @@
           }
         },
         "required": [
+          "set",
+          "binding",
           "sampler_name",
           "sampler_count"
         ]
