@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include "make_buffer.hpp"
+#include "make_glsl_buffer.hpp"
 
 using json = nlohmann::json;
 using namespace jshd;
