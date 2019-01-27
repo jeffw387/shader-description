@@ -146,6 +146,12 @@
       "items": {
         "type": "object",
         "properties": {
+          "binding": {
+            "type": "number"
+          },
+          "set": {
+            "type": "number"
+          },
           "image_name": {
             "type": "string"
           },
@@ -161,6 +167,8 @@
           }
         },
         "required": [
+          "binding",
+          "set",
           "image_name",
           "image_type",
           "image_count"
