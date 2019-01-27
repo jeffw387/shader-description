@@ -12,16 +12,16 @@ target_include_directories(json-shader-tests PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 set(common-headers 
   split_view.hpp 
   buffer_block.hpp
-  glsl/make_buffer.hpp 
-  glsl/make_input.hpp
-  glsl/make_output.hpp
-  glsl/make_image.hpp
+  make_glsl_buffer.hpp 
+  make_glsl_input.hpp
+  make_glsl_output.hpp
+  make_glsl_image.hpp
   )
 target_sources(json-shader PUBLIC ${common-headers})
 target_sources(json-shader-tests PUBLIC 
   ${common-headers} 
   split_view.test.cpp 
-  glsl/make_buffer.test.cpp
-  glsl/make_input.test.cpp
-  glsl/make_output.test.cpp
-  glsl/make_image.test.cpp)
+  make_glsl_buffer.test.cpp
+  make_glsl_input.test.cpp
+  make_glsl_output.test.cpp
+  make_glsl_image.test.cpp)
