@@ -11,7 +11,7 @@ inline std::string make_input(
     std::string_view typeName,
     uint32_t location) {
   return fmt::format(
-      "layout (location = {}) in {} {};", location, typeName, inputName);
+      "layout(location = {}) in {} {};", location, typeName, inputName);
 }
 
 inline std::string make_input(json inputJson) {

@@ -26,7 +26,7 @@ inline std::string make_buffer(
       break;
   }
   std::string blockDeclaration = fmt::format(
-      "layout (set = {}, binding = {}) {} {} {{\n",
+      "layout(set = {}, binding = {}) {} {} {{\n",
       set,
       binding,
       bufferModifier,
@@ -36,7 +36,7 @@ inline std::string make_buffer(
   for (const common::data_type& member : members) {
     std::string arrayString;
     if (member.memberCount > 1) {
-      arrayString = "[{}]"_format(member.memberCount);
+      arrayString = fmt::format("[{}]", member.memberCount);
     }
     std::string memberDeclaration = fmt::format(
         "  {}{} {};\n", member.typeName, arrayString, member.memberName);

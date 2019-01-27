@@ -4,7 +4,7 @@
 using json = nlohmann::json;
 TEST_CASE("Make a string from a buffer description") {
   std::string desiredOutput =
-      "layout (set = 3, binding = 3) uniform CameraBlock {\n"
+      "layout(set = 3, binding = 3) uniform CameraBlock {\n"
       "  mat4 view;\n"
       "  mat4 projection;\n"
       "} camera;\n";
@@ -25,7 +25,7 @@ TEST_CASE("Make a string from a buffer description") {
 
 TEST_CASE("Json API output matches expected output") {
   std::string desiredOutput =
-      "layout (set = 3, binding = 3) uniform CameraBlock {\n"
+      "layout(set = 3, binding = 3) uniform CameraBlock {\n"
       "  mat4 view;\n"
       "  mat4 projection;\n"
       "} camera;\n";

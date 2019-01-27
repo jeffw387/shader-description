@@ -11,7 +11,7 @@ inline std::string make_output(
     std::string_view typeName,
     uint32_t location) {
   return fmt::format(
-      "layout (location = {}) out {} {};", location, typeName, outputName);
+      "layout(location = {}) out {} {};", location, typeName, outputName);
 }
 
 inline std::string make_output(json outputJson) {
