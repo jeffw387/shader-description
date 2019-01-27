@@ -14,4 +14,6 @@ target_sources(json-shader PUBLIC ${common-headers})
 target_sources(json-shader-tests PUBLIC 
   ${common-headers} 
   split_view.test.cpp 
-  glsl/make_buffer.test.cpp)
+  glsl/make_buffer.test.cpp
+  glsl/make_input.test.cpp
+  glsl/make_output.test.cpp)
