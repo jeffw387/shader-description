@@ -3,32 +3,39 @@
 #include <string>
 #include <string_view>
 #include <nlohmann/json.hpp>
+#include <vulkan/vulkan.h>
 
 using json = nlohmann::json;
 namespace jshd {
-inline std::string make_image(
-    uint32_t set,
-    uint32_t binding,
-    std::string_view imageType,
-    std::string_view imageName,
-    uint32_t count) {
+  struct image_data {
+    uint32_t set;
+    uint32_t binding;
+    std::string imageTypeName;
+    VkImageType vulkanImageType;
+    std::string imageName;
+    uint32_t count;
+};
+
+inline std::string make_image(image_data imageData) {
   auto countFormatted =
-      (count > 1 ? fmt::format("[{}]", count) : fmt::format(""));
+      (imageData.count > 1 ? fmt::format("[{}]", imageData.count)
+                           : fmt::format(""));
   return fmt::format(
       "layout(set = {}, binding = {}) uniform {} {}{};",
-      set,
-      binding,
-      imageType,
-      imageName,
+      imageData.set,
+      imageData.binding,
+      imageData.imageTypeName,
+      imageData.imageName,
       countFormatted);
 }
 
-inline std::string make_image(json imageJson) {
-  uint32_t set = imageJson["set"];
-  uint32_t binding = imageJson["binding"];
-  std::string imageType = "image" + std::string(imageJson["image_type"]);
-  std::string_view imageName = imageJson["image_name"];
-  uint32_t imageCount = imageJson["image_count"];
-  return make_image(set, binding, imageType, imageName, imageCount);
+inline image_data image_deserialize(nlohmann::json imageJson) {
+  image_data result {};
+  result.set = imageJson["set"];
+  result.binding = imageJson["binding"];
+  result.imageTypeName = "image" + std::string(imageJson["image_type"]);
+  result.imageName = imageJson["image_name"];
+  result.count = imageJson["image_count"];
+  return result;
 }
 }  // namespace jshd

@@ -12,7 +12,8 @@ class JsonshaderConan(ConanFile):
       "Catch2/2.5.0@catchorg/stable",
       "jsonformoderncpp/3.5.0@vthiery/stable",
       "cxxopts/2.1.2@jeffw387/testing",
-      "glm/0.9.9.1@g-truc/stable"
+      "glm/0.9.9.1@g-truc/stable",
+      "vulkan-sdk/1.X.X@jeffw387/testing"
     )
     generators = "cmake"
 
