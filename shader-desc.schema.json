@@ -27,7 +27,7 @@
             "type": "string"
           },
           "glsl_type": {
-            "$ref": "#/definitions/data_type"
+            "$ref": "#/definitions/glsl_type"
           },
           "location": {
             "type": "number"
@@ -51,7 +51,7 @@
             "type": "string"
           },
           "glsl_type": {
-            "$ref": "#/definitions/data_type"
+            "$ref": "#/definitions/glsl_type"
           },
           "location": {
             "type": "number"
@@ -114,7 +114,7 @@
                     },
                     "member_type": {
                       "type": "object",
-                      "$ref": "#/definitions/data_type"
+                      "$ref": "#/definitions/glsl_type"
                     },
                     "member_count": {
                       "type": "number"
@@ -219,7 +219,7 @@
             "type": "number"
           },
           "glsl_type": {
-            "$ref": "#/definitions/data_type"
+            "$ref": "#/definitions/glsl_type"
           }
         },
         "required": [
@@ -237,7 +237,7 @@
             "type": "string"
           },
           "glsl_type": {
-            "$ref": "#/definitions/data_type"
+            "$ref": "#/definitions/glsl_type"
           },
           "offset": {
             "type": "number"
@@ -280,7 +280,7 @@
                   "type": "string"
                 },
                 "member_type": {
-                  "$ref": "#/definitions/data_type"
+                  "$ref": "#/definitions/glsl_type"
                 },
                 "element_count": {
                   "type": "number"
@@ -300,50 +300,19 @@
         "members"
       ]
     },
-    "data_type": {
-      "type": "object",
-      "properties": {
-        "type_name": {
-          "enum": [
-            "bool",
-            "int",
-            "uint",
-            "float",
-            "double",
-            "bvec2",
-            "bvec3",
-            "bvec4",
-            "ivec2",
-            "ivec3",
-            "ivec4",
-            "uvec2",
-            "uvec3",
-            "uvec4",
-            "vec2",
-            "vec3",
-            "vec4",
-            "dvec2",
-            "dvec3",
-            "dvec4",
-            "mat2",
-            "mat3",
-            "mat4",
-            "dmat2",
-            "dmat3",
-            "dmat4"
-          ]
-        },
-        "align": {
-          "enum": [
-            16,
-            64,
-            128
-          ]
-        }
-      },
-      "required": [
-        "type_name",
-        "align"
+    "glsl_type": {
+      "enum": [
+        "bool",
+        "int",
+        "uint",
+        "float",
+        "double",
+        "vec2",
+        "vec3",
+        "vec4",
+        "mat2",
+        "mat3",
+        "mat4"
       ]
     }
   }

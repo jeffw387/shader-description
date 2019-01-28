@@ -52,6 +52,12 @@ inline std::string make_buffer(
   return result;
 }
 
+struct buffer_data {
+  std::string memberName;
+  std::string typeName;
+  uint32_t align;
+};
+
 inline std::string make_buffer(nlohmann::json bufferBlockJson) {
   std::vector<data_type> members;
   for (const auto& member : bufferBlockJson["members"]) {

@@ -11,7 +11,8 @@ class JsonshaderConan(ConanFile):
       "fmt/5.3.0@bincrafters/stable",
       "Catch2/2.5.0@catchorg/stable",
       "jsonformoderncpp/3.5.0@vthiery/stable",
-      "cxxopts/2.1.2@jeffw387/testing"
+      "cxxopts/2.1.2@jeffw387/testing",
+      "glm/0.9.9.1@g-truc/stable"
     )
     generators = "cmake"
 

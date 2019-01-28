@@ -5,36 +5,24 @@
   "inputs": [
     {
       "input_name": "inPos",
-      "glsl_type": {
-        "type_name": "vec3",
-        "align": 16
-      },
+      "glsl_type": "vec3",
       "location": 0
     },
     {
       "input_name": "inNormal",
-      "glsl_type": {
-        "type_name": "vec3",
-        "align": 16
-      },
+      "glsl_type": "vec3",
       "location": 1
     }
   ],
   "outputs": [
     {
       "output_name": "outViewPos",
-      "glsl_type": {
-        "type_name": "vec3",
-        "align": 16
-      },
+      "glsl_type": "vec3",
       "location": 0
     },
     {
       "output_name": "outViewNormal",
-      "glsl_type": {
-        "type_name": "vec3",
-        "align": 16
-      },
+      "glsl_type": "vec3",
       "location": 1
     }
   ],
@@ -49,18 +37,12 @@
       "members": [
         {
           "member_name": "view",
-          "member_type": {
-            "type_name": "mat4",
-            "align": 64
-          },
+          "member_type": "mat4",
           "member_count": 1
         },
         {
           "member_name": "projection",
-          "member_type": {
-            "type_name": "mat4",
-            "align": 64
-          },
+          "member_type": "mat4",
           "member_count": 1
         }
       ]
@@ -75,10 +57,7 @@
       "members": [
         {
           "member_name": "model",
-          "member_type": {
-            "type_name": "mat4",
-            "align": 64
-          },
+          "member_type": "mat4",
           "member_count": 1
         }
       ]
