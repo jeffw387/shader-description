@@ -8,7 +8,7 @@
 
 using namespace fmt::literals;
 namespace jshd {
-inline std::string make_glsl_buffer(
+inline std::string make_buffer(
     uint32_t binding,
     uint32_t set,
     std::string blockName,
@@ -52,7 +52,7 @@ inline std::string make_glsl_buffer(
   return result;
 }
 
-inline std::string make_glsl_buffer(nlohmann::json bufferBlockJson) {
+inline std::string make_buffer(nlohmann::json bufferBlockJson) {
   std::vector<data_type> members;
   for (const auto& member : bufferBlockJson["members"]) {
     data_type memberData;
@@ -62,7 +62,7 @@ inline std::string make_glsl_buffer(nlohmann::json bufferBlockJson) {
     memberData.align = member["member_type"]["align"];
     members.push_back(std::move(memberData));
   }
-  return make_glsl_buffer(
+  return make_buffer(
       bufferBlockJson["set"],
       bufferBlockJson["binding"],
       bufferBlockJson["block_name"],

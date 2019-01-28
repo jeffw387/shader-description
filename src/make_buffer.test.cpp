@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include "make_glsl_buffer.hpp"
+#include "make_buffer.hpp"
 
 using json = nlohmann::json;
 using namespace jshd;
@@ -13,7 +13,7 @@ TEST_CASE("Make a string from a buffer description") {
       data_type{"view", "mat4", 64, 1},
       data_type{"projection", "mat4", 64, 1}};
 
-  auto result = make_glsl_buffer(
+  auto result = make_buffer(
       3,
       3,
       "CameraBlock",
@@ -50,6 +50,6 @@ TEST_CASE("Json API output matches expected output") {
       "  }\n"
       "]\n"
       "}\n ");
-  auto result = make_glsl_buffer(testInput);
+  auto result = make_buffer(testInput);
   REQUIRE(result == desiredOutput);
 }
