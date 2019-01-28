@@ -14,7 +14,7 @@ set(common-headers
   buffer_block.hpp
   make_buffer.hpp 
   make_input.hpp
-  make_glsl_output.hpp
+  make_output.hpp
   make_image.hpp
   )
 target_sources(json-shader PUBLIC ${common-headers})
@@ -23,5 +23,5 @@ target_sources(json-shader-tests PUBLIC
   split_view.test.cpp 
   make_buffer.test.cpp
   make_input.test.cpp
-  make_glsl_output.test.cpp
+  make_output.test.cpp
   make_image.test.cpp)

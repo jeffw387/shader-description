@@ -6,7 +6,7 @@
 
 using json = nlohmann::json;
 namespace jshd {
-inline std::string make_glsl_output(
+inline std::string make_output(
     std::string_view outputName,
     std::string_view typeName,
     uint32_t location) {
@@ -14,11 +14,11 @@ inline std::string make_glsl_output(
       "layout(location = {}) out {} {};", location, typeName, outputName);
 }
 
-inline std::string make_glsl_output(json outputJson) {
+inline std::string make_output(json outputJson) {
   std::string outputName = outputJson["output_name"];
   std::string typeName = outputJson["glsl_type"]["type_name"];
   uint32_t location = outputJson["location"];
 
-  return make_glsl_output(outputName, typeName, location);
+  return make_output(outputName, typeName, location);
 }
 }  // namespace jshd

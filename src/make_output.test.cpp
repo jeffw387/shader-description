@@ -1,9 +1,9 @@
-#include "make_glsl_output.hpp"
+#include "make_output.hpp"
 #include <catch2/catch.hpp>
 
 TEST_CASE("Make a test output string, ensure it matches expected") {
   std::string expectedString = "layout(location = 0) out vec3 outPos;";
-  auto result = jshd::make_glsl_output("outPos", "vec3", 0);
+  auto result = jshd::make_output("outPos", "vec3", 0);
   REQUIRE(result == expectedString);
 }
 
@@ -18,6 +18,6 @@ TEST_CASE("Make output string from output json, match it to expected") {
       "},\n"
       "\"location\": 0\n"
       "}\n");
-  auto result = jshd::make_glsl_output(outputJson);
+  auto result = jshd::make_output(outputJson);
   REQUIRE(result == expectedString);
 }
