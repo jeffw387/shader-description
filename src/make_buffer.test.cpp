@@ -3,26 +3,6 @@
 
 using json = nlohmann::json;
 using namespace jshd;
-TEST_CASE("Make a string from a buffer description") {
-  std::string desiredOutput =
-      "layout(set = 3, binding = 3) uniform CameraBlock {\n"
-      "  mat4 view;\n"
-      "  mat4 projection;\n"
-      "} camera;\n";
-  std::vector<data_type> members{
-      data_type{"view", "mat4", 64, 1},
-      data_type{"projection", "mat4", 64, 1}};
-
-  auto result = make_buffer(
-      3,
-      3,
-      "CameraBlock",
-      "camera",
-      buffer_type::uniform,
-      false,
-      members);
-  REQUIRE(result == desiredOutput);
-}
 
 TEST_CASE("Json API output matches expected output") {
   std::string desiredOutput =
@@ -40,16 +20,17 @@ TEST_CASE("Json API output matches expected output") {
       "\"members\" : [\n"
       "{\n"
       "\"member_name\" : \"view\",\n"
-      "\"member_type\" : {\"type_name\" : \"mat4\", \"align\" : 64},\n"
+      "\"member_type\" : \"mat4\",\n"
       "\"member_count\" : 1\n"
       "},\n"
       "{\n"
       "\"member_name\" : \"projection\",\n"
-      "\"member_type\" : {\"type_name\" : \"mat4\", \"align\" : 64},\n"
+      "\"member_type\" : \"mat4\",\n"
       "\"member_count\" : 1\n"
       "  }\n"
       "]\n"
       "}\n ");
-  auto result = make_buffer(testInput);
+  auto bufferData = buffer_deserialize(testInput);
+  auto result = make_buffer(bufferData);
   REQUIRE(result == desiredOutput);
 }

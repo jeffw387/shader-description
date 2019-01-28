@@ -8,16 +8,25 @@
 
 using namespace fmt::literals;
 namespace jshd {
-inline std::string make_buffer(
-    uint32_t binding,
-    uint32_t set,
-    std::string blockName,
-    std::string instanceName,
-    buffer_type bufferType,
-    bool dynamic,
-    std::vector<data_type> members) {
+struct member_data {
+  std::string memberName;
+  std::string typeName;
+  glsl_type glslType;
+  uint32_t count;
+};
+
+struct buffer_data {
+  uint32_t set;
+  uint32_t binding;
+  buffer_type bufferType;
+  std::string blockName;
+  std::string instanceName;
+  std::vector<member_data> members;
+};
+
+inline std::string make_buffer(buffer_data bufferData) {
   std::string bufferModifier;
-  switch (bufferType) {
+  switch (bufferData.bufferType) {
     case buffer_type::uniform:
       bufferModifier = "uniform";
       break;
@@ -27,22 +36,25 @@ inline std::string make_buffer(
   }
   std::string blockDeclaration = fmt::format(
       "layout(set = {}, binding = {}) {} {} {{\n",
-      set,
-      binding,
+      bufferData.set,
+      bufferData.binding,
       bufferModifier,
-      blockName);
+      bufferData.blockName);
+
   std::vector<std::string> memberDeclarations;
-  memberDeclarations.reserve(members.size());
-  for (const data_type& member : members) {
+  memberDeclarations.reserve(bufferData.members.size());
+  for (const member_data& member : bufferData.members) {
     std::string arrayString;
-    if (member.memberCount > 1) {
-      arrayString = fmt::format("[{}]", member.memberCount);
+    if (member.count > 1) {
+      arrayString = fmt::format("[{}]", member.count);
     }
     std::string memberDeclaration = fmt::format(
         "  {}{} {};\n", member.typeName, arrayString, member.memberName);
     memberDeclarations.push_back(std::move(memberDeclaration));
   }
-  std::string instanceDeclaration = fmt::format("}} {};\n", instanceName);
+
+  std::string instanceDeclaration =
+      fmt::format("}} {};\n", bufferData.instanceName);
   std::string result;
   result += blockDeclaration;
   for (auto& member : memberDeclarations) {
@@ -52,30 +64,22 @@ inline std::string make_buffer(
   return result;
 }
 
-struct buffer_data {
-  std::string memberName;
-  std::string typeName;
-  uint32_t align;
-};
-
-inline std::string make_buffer(nlohmann::json bufferBlockJson) {
-  std::vector<data_type> members;
+inline buffer_data buffer_deserialize(nlohmann::json bufferBlockJson) {
+  buffer_data result{};
+  result.set = bufferBlockJson["set"];
+  result.binding = bufferBlockJson["binding"];
+  result.blockName = bufferBlockJson["block_name"];
+  result.instanceName = bufferBlockJson["instance_name"];
+  result.bufferType = from_string(bufferBlockJson["buffer_type"]);
   for (const auto& member : bufferBlockJson["members"]) {
-    data_type memberData;
-    memberData.memberName = member["member_name"];
-    memberData.memberCount = member["member_count"];
-    memberData.typeName = member["member_type"]["type_name"];
-    memberData.glslType =
-        make_glsl_type(memberData.typeName);
-    members.push_back(std::move(memberData));
+    auto typeName = member["member_type"];
+    member_data memberData{
+        member["member_name"],
+        typeName,
+        make_glsl_type(typeName),
+        member["member_count"]};
+    result.members.push_back(std::move(memberData));
   }
-  return make_buffer(
-      bufferBlockJson["set"],
-      bufferBlockJson["binding"],
-      bufferBlockJson["block_name"],
-      bufferBlockJson["instance_name"],
-      from_string(bufferBlockJson["buffer_type"]),
-      bufferBlockJson["dynamic"],
-      std::move(members));
+  return result;
 }
 }  // namespace jshd
