@@ -33,6 +33,10 @@
             "type": "number"
           },
           "modifiers": {
+            "type": "array",
+            "items": {
+              "enum": [ "flat" ]
+            }
           }
         },
         "required": [
@@ -57,7 +61,10 @@
             "type": "number"
           },
           "modifiers": {
-            "enum": ["flat"]
+            "type": "array",
+            "items": {
+              "enum": [ "flat" ]
+            }
           }
         },
         "required": [
