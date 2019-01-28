@@ -11,25 +11,26 @@ TEST_CASE("Json API output matches expected output") {
       "  mat4 projection;\n"
       "} camera;\n";
   auto testInput = json::parse(
-      "{\n"
-      "\"binding\" : 3,\n"
-      "\"set\" : 3, \"block_name\" : \"CameraBlock\",\n"
-      "\"instance_name\" : \"camera\",\n"
-      "\"buffer_type\" : \"uniform\",\n"
-      "\"dynamic\" : false,\n"
-      "\"members\" : [\n"
-      "{\n"
-      "\"member_name\" : \"view\",\n"
-      "\"member_type\" : \"mat4\",\n"
-      "\"member_count\" : 1\n"
-      "},\n"
-      "{\n"
-      "\"member_name\" : \"projection\",\n"
-      "\"member_type\" : \"mat4\",\n"
-      "\"member_count\" : 1\n"
-      "  }\n"
-      "]\n"
-      "}\n ");
+      R"(
+      {
+      "binding": 3,
+      "set": 3,
+      "block_name": "CameraBlock",
+      "instance_name": "camera",
+      "buffer_type": "uniform",
+      "dynamic": false,
+      "members": [
+      {
+        "member_name": "view",
+        "member_type": "mat4",
+        "member_count": 1
+      },
+      {
+        "member_name": "projection",
+        "member_type": "mat4",
+        "member_count": 1
+      }]
+      })");
   auto bufferData = buffer_deserialize(testInput);
   auto result = make_buffer(bufferData);
   REQUIRE(result == desiredOutput);
