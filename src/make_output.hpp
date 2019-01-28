@@ -24,7 +24,7 @@ inline std::string make_output(output_data outputData) {
 }
 
 inline output_data output_deserialize(json outputJson) {
-  output_data result {};
+  output_data result{};
   result.outputName = outputJson["output_name"];
   std::string typeName = outputJson["glsl_type"];
   result.outputType = make_glsl_type(typeName);
