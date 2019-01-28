@@ -10,7 +10,8 @@ target_link_libraries(json-shader-tests PRIVATE ${CONAN_LIBS})
 target_include_directories(json-shader-tests PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
 set(common-headers 
-  split_view.hpp 
+  split_view.hpp
+  compile_hash.hpp
   buffer_block.hpp
   make_buffer.hpp 
   make_input.hpp

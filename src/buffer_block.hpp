@@ -4,6 +4,7 @@
 #include <variant>
 #include <glm/glm.hpp>
 #include <iostream>
+#include "compile_hash.hpp"
 
 namespace jshd {
 enum class buffer_type { uniform, storage };
@@ -29,12 +30,6 @@ using glsl_type = std::variant<
   glm::mat2,
   glm::mat3,
   glm::mat4>;
-
-constexpr 
-unsigned int hash(std::string_view str, int h = 0)
-{
-    return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
-}
 
 inline glsl_type make_glsl_type(std::string_view typeName) {
   using namespace glm;
