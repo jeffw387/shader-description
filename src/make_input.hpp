@@ -3,22 +3,37 @@
 #include <string>
 #include <string_view>
 #include <nlohmann/json.hpp>
+#include "glsl_type.hpp"
 
 using json = nlohmann::json;
 namespace jshd {
-inline std::string make_input(
-    std::string_view inputName,
-    std::string_view typeName,
-    uint32_t location) {
+struct input_data {
+  std::string inputName;
+  std::string inputTypeName;
+  std::vector<std::string> modifiers;
+  glsl_type inputType;
+  uint32_t location;
+};
+
+inline std::string make_input(input_data inputData) {
   return fmt::format(
-      "layout(location = {}) in {} {};", location, typeName, inputName);
+      "layout(location = {}) in {} {};",
+      inputData.location,
+      inputData.inputTypeName,
+      inputData.inputName);
 }
 
-inline std::string make_input(json inputJson) {
-  std::string inputName = inputJson["input_name"];
-  std::string typeName = inputJson["glsl_type"]["type_name"];
-  uint32_t location = inputJson["location"];
+inline input_data input_deserialize(json inputJson) {
+  input_data result{};
+  result.inputName = inputJson["input_name"];
+  std::string typeName = inputJson["glsl_type"];
+  result.inputType = make_glsl_type(typeName);
+  result.inputTypeName = std::move(typeName);
+  result.location = inputJson["location"];
+  for (auto modifier : inputJson["modifiers"]) {
+    result.modifiers.push_back(std::move(modifier));
+  }
 
-  return make_input(inputName, typeName, location);
+  return result;
 }
 }  // namespace jshd
