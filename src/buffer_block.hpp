@@ -18,11 +18,4 @@ inline buffer_type from_string(std::string_view value) {
   }
   return {};
 }
-
-struct data_type {
-  std::string memberName;
-  std::string typeName;
-  glsl_type glslType;
-  uint32_t memberCount;
-};
 }  // namespace common
