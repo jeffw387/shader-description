@@ -70,6 +70,7 @@ inline glsl_type make_glsl_type(std::string_view typeName) {
 
 struct data_type {
   std::string memberName;
+  std::string typeName;
   glsl_type glslType;
   uint32_t memberCount;
 };

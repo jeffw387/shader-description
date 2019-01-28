@@ -65,7 +65,8 @@ inline std::string make_buffer(nlohmann::json bufferBlockJson) {
     memberData.memberName = member["member_name"];
     memberData.memberCount = member["member_count"];
     memberData.typeName = member["member_type"]["type_name"];
-    memberData.align = member["member_type"]["align"];
+    memberData.glslType =
+        make_glsl_type(memberData.typeName);
     members.push_back(std::move(memberData));
   }
   return make_buffer(
