@@ -4,8 +4,7 @@
 TEST_CASE("Make output string from output json, match it to expected") {
   std::string expectedString = "layout(location = 0) out vec3 outPos;";
   auto outputJson = json::parse(
-      R"(
-      {
+      R"({
       "output_name": "outPos",
       "glsl_type": "vec3",
       "location": 0
