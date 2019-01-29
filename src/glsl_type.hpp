@@ -6,42 +6,42 @@
 #include "compile_hash.hpp"
 
 namespace glm {
-std::ostream& operator<<(std::ostream& os, vec2 vec) {
+inline std::ostream& operator<<(std::ostream& os, vec2 vec) {
   for (int i{}; i < 2; ++i) {
     os << vec[i];
   }
   return os;
 }
 
-std::ostream& operator<<(std::ostream& os, vec3 vec) {
+inline std::ostream& operator<<(std::ostream& os, vec3 vec) {
   for (int i{}; i < 3; ++i) {
     os << vec[i];
   }
   return os;
 }
 
-std::ostream& operator<<(std::ostream& os, vec4 vec) {
+inline std::ostream& operator<<(std::ostream& os, vec4 vec) {
   for (int i{}; i < 4; ++i) {
     os << vec[i];
   }
   return os;
 }
 
-std::ostream& operator<<(std::ostream& os, mat2 matrix) {
+inline std::ostream& operator<<(std::ostream& os, mat2 matrix) {
   for (int i{}; i < 2; ++i) {
     os << matrix[i];
   }
   return os;
 }
 
-std::ostream& operator<<(std::ostream& os, mat3 matrix) {
+inline std::ostream& operator<<(std::ostream& os, mat3 matrix) {
   for (int i{}; i < 3; ++i) {
     os << matrix[i];
   }
   return os;
 }
 
-std::ostream& operator<<(std::ostream& os, mat4 matrix) {
+inline std::ostream& operator<<(std::ostream& os, mat4 matrix) {
   for (int i{}; i < 4; ++i) {
     os << matrix[i];
   }
