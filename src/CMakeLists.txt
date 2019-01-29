@@ -20,6 +20,7 @@ set(common-headers
   make_image.hpp
   make_sampler.hpp
   make_constant.hpp
+  make_push_constant.hpp
   )
 target_sources(json-shader PUBLIC ${common-headers})
 target_sources(json-shader-tests PUBLIC 
@@ -31,4 +32,5 @@ target_sources(json-shader-tests PUBLIC
   make_image.test.cpp
   make_sampler.test.cpp
   make_constant.test.cpp
+  make_push_constant.test.cpp
   )
