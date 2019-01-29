@@ -227,10 +227,14 @@
           },
           "glsl_type": {
             "$ref": "#/definitions/glsl_type"
+          },
+          "constant_value": {
+            "type": "number"
           }
         },
         "required": [
           "constant_name",
+          "constant_value",
           "glsl_type"
         ]
       }
