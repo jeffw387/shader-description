@@ -7,13 +7,13 @@
 
 using json = nlohmann::json;
 namespace jshd {
-  struct image_data {
-    uint32_t set;
-    uint32_t binding;
-    std::string imageTypeName;
-    VkImageType vulkanImageType;
-    std::string imageName;
-    uint32_t count;
+struct image_data {
+  uint32_t set;
+  uint32_t binding;
+  std::string imageTypeName;
+  VkImageType vulkanImageType;
+  std::string imageName;
+  uint32_t count;
 };
 
 inline std::string make_image(image_data imageData) {
@@ -30,7 +30,7 @@ inline std::string make_image(image_data imageData) {
 }
 
 inline image_data image_deserialize(nlohmann::json imageJson) {
-  image_data result {};
+  image_data result{};
   result.set = imageJson["set"];
   result.binding = imageJson["binding"];
   result.imageTypeName = "image" + std::string(imageJson["image_type"]);

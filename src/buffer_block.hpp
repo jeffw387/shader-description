@@ -18,4 +18,4 @@ inline buffer_type from_string(std::string_view value) {
   }
   return {};
 }
-}  // namespace common
+}  // namespace jshd

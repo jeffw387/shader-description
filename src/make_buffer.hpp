@@ -73,11 +73,10 @@ inline buffer_data buffer_deserialize(nlohmann::json bufferBlockJson) {
   result.bufferType = from_string(bufferBlockJson["buffer_type"]);
   for (const auto& member : bufferBlockJson["members"]) {
     auto typeName = member["member_type"];
-    member_data memberData{
-        member["member_name"],
-        typeName,
-        make_glsl_type(typeName),
-        member["member_count"]};
+    member_data memberData{member["member_name"],
+                           typeName,
+                           make_glsl_type(typeName),
+                           member["member_count"]};
     result.members.push_back(std::move(memberData));
   }
   return result;
