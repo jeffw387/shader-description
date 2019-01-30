@@ -35,15 +35,15 @@ inline std::string make_array_string(std::optional<uint32_t> count) {
   return "[]";
 }
 
-inline std::string make_buffer(buffer_data bufferData) {
-  std::string bufferModifier;
-  switch (bufferData.bufferType) {
+inline std::string make_buffer_modifier(buffer_type bufferType) {
+  switch (bufferType) {
     case buffer_type::uniform:
-      bufferModifier = "uniform";
-      break;
+      return "uniform";
     case buffer_type::storage:
-      bufferModifier = "readonly buffer";
-      break;
+      return "readonly buffer";
+  }
+  fmt::print(std::cerr, "Error: buffer type not supported!");
+  exit(1);
   }
 
 inline std::string make_buffer(buffer_data bufferData) {
