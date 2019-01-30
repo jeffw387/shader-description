@@ -72,12 +72,48 @@ inline shader_data shader_deserialize(nlohmann::json j) {
   return result;
 }
 
-  }
-  for (auto pushConstant : j["push_constants"]) {
-    auto pushConstantData = push_constant_deserialize(pushConstant);
-    result.pushConstants.push_back(std::move(pushConstantData));
-  }
-}
+inline std::string make_shader(shader_data shaderData) {
+  fmt::memory_buffer result;
+  fmt::format_to(result, "#version 450 core\n");
+  fmt::format_to(result, "\n");
 
-inline std::string make_shader(shader_data shaderData) {}
+  for (auto constant : shaderData.constants) {
+    fmt::format_to(result, make_constant(constant));
+  }
+  fmt::format_to(result, "\n");
+
+  for (auto input : shaderData.inputs) {
+    fmt::format_to(result, make_input(input));
+  }
+  fmt::format_to(result, "\n");
+
+  for (auto output : shaderData.outputs) {
+    fmt::format_to(result, make_output(output));
+  }
+  fmt::format_to(result, "\n");
+
+  fmt::format_to(result, "layout (push_constant) uniform PushConstant {{\n");
+  for (auto pushConstant : shaderData.pushConstants) {
+    fmt::format_to(result, make_push_constant(pushConstant));
+  }
+  fmt::format_to(result, "}} push;\n");
+  fmt::format_to(result, "\n");
+
+  for (auto buffer : shaderData.buffers) {
+    fmt::format_to(result, make_buffer(buffer));
+  }
+  fmt::format_to(result, "\n");
+
+  for (auto image : shaderData.images) {
+    fmt::format_to(result, make_image(image));
+  }
+  fmt::format_to(result, "\n");
+
+  for (auto sampler : shaderData.samplers) {
+    fmt::format_to(result, make_sampler(sampler));
+}
+  fmt::format_to(result, "\n");
+
+  return fmt::to_string(result);
+}
 }  // namespace jshd
