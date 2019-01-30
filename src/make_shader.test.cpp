@@ -39,6 +39,13 @@ layout (set = 1, binding = 1) uniform sampler imgSampler;
       // clang-format off
 R"({
   "shader_stage": "Fragment",
+  "constants": [
+    {
+      "constant_name": "someConstant",
+      "glsl_type": "uint",
+      "constant_value": 2
+    }
+  ],
   "inputs": [],
   "outputs": [
     {
@@ -47,7 +54,77 @@ R"({
       "location": 0
     }
   ],
-
+  "push_constants": [
+    {
+      "constant_name": "push0",
+      "glsl_type": "vec3",
+      "offset": 0
+    },
+    {
+      "constant_name": "push1",
+      "glsl_type": "float",
+      "offset": 16
+    },
+    {
+      "constant_name": "push2",
+      "glsl_type": "vec4",
+      "offset": 32
+    }
+  ],
+  "buffer_blocks": [
+    {
+      "block_name": "UniformBlock",
+      "instance_name": "uniforms",
+      "buffer_type": "uniform",
+      "dynamic": false,
+      "binding": 2,
+      "set": 2,
+      "members": [
+        {
+          "member_name": "member0",
+          "member_type": "vec4",
+          "member_count": 4
+        },
+        {
+          "member_name": "member1",
+          "member_type": "vec4",
+          "member_count": 1
+        }
+      ]
+    },
+    {
+      "block_name": "StorageBlock",
+      "instance_name": "storageData",
+      "buffer_type": "storage",
+      "dynamic": false,
+      "binding": 3,
+      "set": 3,
+      "members": [
+        {
+          "member_name": "matrices",
+          "member_type": "mat4"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "binding": 0,
+      "set": 0,
+      "image_name": "myImage",
+      "image_type": "texture2D",
+      "image_count": 3
+    }
+  ],
+  "samplers": [
+    {
+      "binding": 1,
+      "set": 1,
+      "sampler_name": "imgSampler",
+      "sampler_count": 1
+    }
+  ]
+}
 )"
       // clang-format on
       )};
