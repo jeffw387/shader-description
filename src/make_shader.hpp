@@ -69,9 +69,9 @@ inline shader_data shader_deserialize(nlohmann::json j) {
     auto samplerData = sampler_deserialize(sampler);
     result.samplers.push_back(std::move(samplerData));
   }
-  for (auto constant : j["constants"]) {
-    auto constantData = constant_deserialize(constant);
-    result.constants.push_back(std::move(constantData));
+  return result;
+}
+
   }
   for (auto pushConstant : j["push_constants"]) {
     auto pushConstantData = push_constant_deserialize(pushConstant);
