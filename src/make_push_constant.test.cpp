@@ -5,7 +5,7 @@
 
 using json = nlohmann::json;
 TEST_CASE("Create a push constant glsl string from json, check output") {
-  std::string expectedOutput = "  layout (offset = 0) mat4 mvp;";
+  std::string expectedOutput = "  layout (offset = 0) mat4 mvp;\n";
   auto j = json::parse(
       R"({
       "constant_name": "mvp",

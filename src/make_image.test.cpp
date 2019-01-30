@@ -3,7 +3,7 @@
 
 TEST_CASE("Create a glsl string for image descriptor(s) from json") {
   std::string desiredOutput =
-      "layout(set = 1, binding = 1) uniform texture2D myImage;";
+      "layout (set = 1, binding = 1) uniform texture2D myImage;\n";
   auto j = json::parse(
       R"({
         "binding": 1,

@@ -17,7 +17,7 @@ struct output_data {
 
 inline std::string make_output(output_data outputData) {
   return fmt::format(
-      "layout(location = {}) out {} {};",
+      "layout (location = {}) out {} {};\n",
       outputData.location,
       outputData.outputTypeName,
       outputData.outputName);

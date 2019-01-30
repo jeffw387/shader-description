@@ -23,7 +23,7 @@ inline push_constant_data push_constant_deserialize(nlohmann::json j) {
 
 inline std::string make_push_constant(push_constant_data pcData) {
   return fmt::format(
-      "  layout (offset = {}) {} {};",
+      "  layout (offset = {}) {} {};\n",
       pcData.offset,
       pcData.typeName,
       pcData.constantName);

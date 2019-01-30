@@ -20,7 +20,7 @@ inline std::string make_image(image_data imageData) {
       (imageData.count > 1 ? fmt::format("[{}]", imageData.count)
                            : fmt::format(""));
   return fmt::format(
-      "layout(set = {}, binding = {}) uniform {} {}{};",
+      "layout (set = {}, binding = {}) uniform {} {}{};\n",
       imageData.set,
       imageData.binding,
       imageData.imageTypeName,
