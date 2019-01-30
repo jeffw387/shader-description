@@ -6,7 +6,7 @@
 using json = nlohmann::json;
 TEST_CASE("Create glsl shader from json. Check output.") {
   std::string expectedOutput =
-R"(
+      R"(
 #version 450 core
 
 const uint someConstant = 2;

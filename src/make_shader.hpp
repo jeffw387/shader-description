@@ -39,7 +39,7 @@ inline VkShaderStageFlagBits make_shader_stage(std::string_view stageName) {
 }
 
 inline shader_data shader_deserialize(nlohmann::json j) {
-  shader_data result {};
+  shader_data result{};
   result.stage = make_shader_stage(j["shader_stage"]);
   for (auto input : j["inputs"]) {
     auto inputData = input_deserialize(input);
@@ -71,7 +71,5 @@ inline shader_data shader_deserialize(nlohmann::json j) {
   }
 }
 
-inline std::string make_shader(shader_data shaderData) {
-
-}
-}
+inline std::string make_shader(shader_data shaderData) {}
+}  // namespace jshd
