@@ -45,33 +45,27 @@ inline std::string make_buffer(buffer_data bufferData) {
       bufferModifier = "readonly buffer";
       break;
   }
-  std::string blockDeclaration = fmt::format(
+
+inline std::string make_buffer(buffer_data bufferData) {
+  fmt::memory_buffer result{};
+  auto bufferMod = make_buffer_modifier(bufferData.bufferType);
+  fmt::format_to(result,
       "layout (set = {}, binding = {}) {} {} {{\n",
       bufferData.set,
       bufferData.binding,
-      bufferModifier,
+      bufferMod,
       bufferData.blockName);
 
-  std::vector<std::string> memberDeclarations;
-  memberDeclarations.reserve(bufferData.members.size());
   for (const member_data& member : bufferData.members) {
-    std::string memberDeclaration = fmt::format(
+    fmt::format_to(result,
         "  {} {}{};\n",
         member.typeName,
         member.memberName,
         make_array_string(member.count));
-    memberDeclarations.push_back(std::move(memberDeclaration));
   }
 
-  std::string instanceDeclaration =
-      fmt::format("}} {};\n", bufferData.instanceName);
-  std::string result;
-  result += blockDeclaration;
-  for (auto& member : memberDeclarations) {
-    result += member;
-  }
-  result += instanceDeclaration;
-  return result;
+  fmt::format_to(result, "}} {};\n", bufferData.instanceName);
+  return fmt::to_string(result);
 }
 
 inline buffer_data buffer_deserialize(nlohmann::json bufferBlockJson) {
