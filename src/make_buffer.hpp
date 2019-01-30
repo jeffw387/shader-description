@@ -25,7 +25,7 @@ struct buffer_data {
   std::vector<member_data> members;
 };
 
-std::string make_array_string(std::optional<uint32_t> count) {
+inline std::string make_array_string(std::optional<uint32_t> count) {
   if (count) {
     if (*count > 1) {
       return fmt::format("[{}]", *count);
