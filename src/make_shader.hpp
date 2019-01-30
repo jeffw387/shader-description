@@ -111,7 +111,7 @@ inline std::string make_shader(shader_data shaderData) {
 
   for (auto sampler : shaderData.samplers) {
     fmt::format_to(result, make_sampler(sampler));
-}
+  }
   fmt::format_to(result, "\n");
 
   return fmt::to_string(result);

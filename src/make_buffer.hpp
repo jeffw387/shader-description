@@ -44,12 +44,13 @@ inline std::string make_buffer_modifier(buffer_type bufferType) {
   }
   fmt::print(std::cerr, "Error: buffer type not supported!");
   exit(1);
-  }
+}
 
 inline std::string make_buffer(buffer_data bufferData) {
   fmt::memory_buffer result{};
   auto bufferMod = make_buffer_modifier(bufferData.bufferType);
-  fmt::format_to(result,
+  fmt::format_to(
+      result,
       "layout (set = {}, binding = {}) {} {} {{\n",
       bufferData.set,
       bufferData.binding,
@@ -57,7 +58,8 @@ inline std::string make_buffer(buffer_data bufferData) {
       bufferData.blockName);
 
   for (const member_data& member : bufferData.members) {
-    fmt::format_to(result,
+    fmt::format_to(
+        result,
         "  {} {}{};\n",
         member.typeName,
         member.memberName,
