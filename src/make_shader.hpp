@@ -41,6 +41,10 @@ inline VkShaderStageFlagBits make_shader_stage(std::string_view stageName) {
 inline shader_data shader_deserialize(nlohmann::json j) {
   shader_data result{};
   result.stage = make_shader_stage(j["shader_stage"]);
+  for (auto constant : j["constants"]) {
+    auto constantData = constant_deserialize(constant);
+    result.constants.push_back(std::move(constantData));
+  }
   for (auto input : j["inputs"]) {
     auto inputData = input_deserialize(input);
     result.inputs.push_back(std::move(inputData));
@@ -48,6 +52,10 @@ inline shader_data shader_deserialize(nlohmann::json j) {
   for (auto output : j["outputs"]) {
     auto outputData = output_deserialize(output);
     result.outputs.push_back(std::move(outputData));
+  }
+  for (auto pushConstant : j["push_constants"]) {
+    auto pushConstantData = push_constant_deserialize(pushConstant);
+    result.pushConstants.push_back(std::move(pushConstantData));
   }
   for (auto buffer : j["buffer_blocks"]) {
     auto bufferData = buffer_deserialize(buffer);
