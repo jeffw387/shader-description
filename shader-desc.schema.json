@@ -129,8 +129,7 @@
                   },
                   "required": [
                     "member_name",
-                    "member_type",
-                    "member_count"
+                    "member_type"
                   ]
                 }
               ]
@@ -164,9 +163,33 @@
           },
           "image_type": {
             "enum": [
-              "1D",
-              "2D",
-              "3D"
+              "texture1D",
+              "texture2D",
+              "texture3D",
+              "texture1DArray",
+              "texture2DArray",
+              "texture2DMS",
+              "texture2DMSArray",
+              "subpassInput",
+              "subpassInputMS",
+              "itexture1D",
+              "itexture2D",
+              "itexture3D",
+              "itexture1DArray",
+              "itexture2DArray",
+              "itexture2DMS",
+              "itexture2DMSArray",
+              "isubpassInput",
+              "isubpassInputMS",
+              "utexture1D",
+              "utexture2D",
+              "utexture3D",
+              "utexture1DArray",
+              "utexture2DArray",
+              "utexture2DMS",
+              "utexture2DMSArray",
+              "usubpassInput",
+              "usubpassInputMS"
             ]
           },
           "image_count": {
