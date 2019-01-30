@@ -101,8 +101,8 @@ inline std::string make_shader(shader_data shaderData) {
 
   for (auto buffer : shaderData.buffers) {
     fmt::format_to(result, "{}", make_buffer(buffer));
+    fmt::format_to(result, "\n");
   }
-  fmt::format_to(result, "\n");
 
   for (auto image : shaderData.images) {
     fmt::format_to(result, "{}", make_image(image));
