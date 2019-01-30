@@ -28,7 +28,7 @@ layout (set = 3, binding = 3) readonly buffer StorageBlock {
   mat4 matrices[];
 } storageData;
 
-layout (set = 0, binding = 0) uniform image2D myImage[3];
+layout (set = 0, binding = 0) uniform texture2D myImage[3];
 
 layout (set = 1, binding = 1) uniform sampler imgSampler;
 )"
