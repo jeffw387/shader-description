@@ -92,7 +92,7 @@ inline std::string make_shader(shader_data shaderData) {
   }
   fmt::format_to(result, "\n");
 
-  fmt::format_to(result, "layout (push_constant) uniform PushConstant {{\n");
+  fmt::format_to(result, "layout (push_constant) uniform PushBlock {{\n");
   for (auto pushConstant : shaderData.pushConstants) {
     fmt::format_to(result, "{}", make_push_constant(pushConstant));
   }
