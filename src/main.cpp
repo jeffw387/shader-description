@@ -22,48 +22,60 @@ std::string load_text_file(std::string path) {
   return ss.str();
 }
 
+json load_json_file(std::string path) {
+  auto text = load_text_file(path);
+  return json::parse(text);
+}
+
 void save_text_file(std::string path, std::string_view fileContents) {
   std::ofstream o{path};
   o << fileContents;
 }
 
+std::string generate_glsl_in_place(std::string_view original, json j) {
+  auto [beforeStartToken, afterStartToken] =
+      split_after(original, StartToken());
+  auto [betweenTokens, afterEndToken] =
+      split_after(afterStartToken, EndToken());
+  auto result = fmt::format(
+      "{}\n{}{}{}",
+      beforeStartToken,
+      jshd::make_shader(jshd::shader_deserialize(j)),
+      EndToken(),
+      afterEndToken);
+  return result;
+}
+
 int main(int argc, char* argv[]) {
   cxxopts::Options options(
-      "json-shader", "Pass in a json-encoded shader file, output glsl and c++");
+      "json-shader", "Pass in a json-encoded shader file, output glsl");
   options.add_options()(
       "i, input", "Input json file", cxxopts::value<std::string>())(
-      "g, glsl",
+      "o, output",
       "Output glsl file",
-      cxxopts::value<std::string>()->default_value("output.glsl"))(
-      "c, cpp",
-      "Output c++ file",
-      cxxopts::value<std::string>()->default_value("output.hpp"))(
-      "t, template", "GLSL output file exists and is a template");
+      cxxopts::value<std::string>()->default_value("output.glsl"));
 
+  options.parse_positional("input");
+  options.positional_help("<input>").show_positional_help();
   auto parseResult = options.parse(argc, argv);
-  if (parseResult.arguments().size() == 0) {
-    std::cout << "No arguments, exiting";
-    exit(1);
+  if (parseResult.arguments().empty()) {
+    fmt::print(options.help());
+    return 0;
   }
+
   std::string inputPath;
-  std::string outputGLSL;
-  std::string outputCPP;
-  bool glslTemplate;
   try {
     inputPath = parseResult["input"].as<std::string>();
-    outputGLSL = parseResult["glsl"].as<std::string>();
-    outputCPP = parseResult["cpp"].as<std::string>();
-    glslTemplate = parseResult["template"].as<bool>();
-  } catch (std::exception& e) {
-    fmt::print(std::cerr, "Error processing command line arguments: {}\n", e.what());
-    exit(1);
+  } catch (const std::exception&) {
+    fmt::print(options.help());
+    return 0;
   }
+  std::string outputGLSL = parseResult["output"].as<std::string>();
 
-  auto inputJson = json::parse(load_text_file(inputPath));
-  auto shaderData = jshd::shader_deserialize(inputJson);
-  auto outputGLSLText = load_text_file(outputGLSL);
-  auto [beforeStartToken, afterStartToken] = split_after(outputGLSLText, StartToken());
-  auto [betweenTokens, afterEndToken] = split_after(afterStartToken, EndToken());
+  auto shaderJson = load_json_file(inputPath);
+  auto glslOriginal = load_text_file(outputGLSL);
 
-  save_text_file(outputGLSL, fmt::format("{}\n{}{}{}", beforeStartToken, jshd::make_shader(shaderData), EndToken(), afterEndToken));
+  auto generatedGLSL = generate_glsl_in_place(glslOriginal, shaderJson);
+
+  save_text_file(outputGLSL, generatedGLSL);
 }
