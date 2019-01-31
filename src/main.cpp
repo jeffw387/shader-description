@@ -7,14 +7,24 @@
 #include <sstream>
 #include <vector>
 #include <string_view>
+#include "make_shader.hpp"
+#include "split_view.hpp"
 
 using nlohmann::json;
+
+constexpr std::string_view StartToken() { return "///{"; }
+constexpr std::string_view EndToken() { return "///}"; }
 
 std::string load_text_file(std::string path) {
   std::ifstream i{path};
   std::stringstream ss;
   ss << i.rdbuf();
   return ss.str();
+}
+
+void save_text_file(std::string path, std::string_view fileContents) {
+  std::ofstream o{path};
+  o << fileContents;
 }
 
 int main(int argc, char* argv[]) {
@@ -45,14 +55,15 @@ int main(int argc, char* argv[]) {
     outputCPP = parseResult["cpp"].as<std::string>();
     glslTemplate = parseResult["template"].as<bool>();
   } catch (std::exception& e) {
-    std::cerr << e.what() << "\n";
+    fmt::print(std::cerr, "Error processing command line arguments: {}\n", e.what());
     exit(1);
   }
-  // std::ifstream f{inputPath};
-  // json j;
-  // f >> j;
-  // std::cout << j["shader_stage"] << "\n";
 
-  auto loaded = load_text_file(inputPath);
-  std::cout << loaded;
+  auto inputJson = json::parse(load_text_file(inputPath));
+  auto shaderData = jshd::shader_deserialize(inputJson);
+  auto outputGLSLText = load_text_file(outputGLSL);
+  auto [beforeStartToken, afterStartToken] = split_after(outputGLSLText, StartToken());
+  auto [betweenTokens, afterEndToken] = split_after(afterStartToken, EndToken());
+
+  save_text_file(outputGLSL, fmt::format("{}\n{}{}{}", beforeStartToken, jshd::make_shader(shaderData), EndToken(), afterEndToken));
 }
