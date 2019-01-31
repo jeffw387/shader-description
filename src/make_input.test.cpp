@@ -2,7 +2,7 @@
 #include <catch2/catch.hpp>
 
 TEST_CASE("Make input string from input json, match it to expected") {
-  std::string expectedString = "layout(location = 0) in vec3 inPos;";
+  std::string expectedString = "layout (location = 0) in vec3 inPos;\n";
   auto inputJson = json::parse(
       R"({
       "input_name": "inPos",

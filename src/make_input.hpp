@@ -17,7 +17,7 @@ struct input_data {
 
 inline std::string make_input(input_data inputData) {
   return fmt::format(
-      "layout(location = {}) in {} {};",
+      "layout (location = {}) in {} {};\n",
       inputData.location,
       inputData.inputTypeName,
       inputData.inputName);
