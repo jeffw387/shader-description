@@ -75,44 +75,58 @@ inline shader_data shader_deserialize(nlohmann::json j) {
 inline std::string make_shader(shader_data shaderData) {
   fmt::memory_buffer result;
   fmt::format_to(result, "#version 450 core\n");
-  fmt::format_to(result, "\n");
+  // fmt::format_to(result, "\n");
 
-  for (auto constant : shaderData.constants) {
-    fmt::format_to(result, "{}", make_constant(constant));
-  }
-  fmt::format_to(result, "\n");
-
-  for (auto input : shaderData.inputs) {
-    fmt::format_to(result, "{}", make_input(input));
-  }
-  fmt::format_to(result, "\n");
-
-  for (auto output : shaderData.outputs) {
-    fmt::format_to(result, "{}", make_output(output));
-  }
-  fmt::format_to(result, "\n");
-
-  fmt::format_to(result, "layout (push_constant) uniform PushBlock {{\n");
-  for (auto pushConstant : shaderData.pushConstants) {
-    fmt::format_to(result, "{}", make_push_constant(pushConstant));
-  }
-  fmt::format_to(result, "}} push;\n");
-  fmt::format_to(result, "\n");
-
-  for (auto buffer : shaderData.buffers) {
-    fmt::format_to(result, "{}", make_buffer(buffer));
+  if (!shaderData.constants.empty()) {
     fmt::format_to(result, "\n");
+    for (auto constant : shaderData.constants) {
+      fmt::format_to(result, "{}", make_constant(constant));
+    }
   }
 
-  for (auto image : shaderData.images) {
-    fmt::format_to(result, "{}", make_image(image));
+  if (!shaderData.inputs.empty()) {
+    fmt::format_to(result, "\n");
+    for (auto input : shaderData.inputs) {
+      fmt::format_to(result, "{}", make_input(input));
+    }
   }
-  fmt::format_to(result, "\n");
 
-  for (auto sampler : shaderData.samplers) {
-    fmt::format_to(result, "{}", make_sampler(sampler));
+  if (!shaderData.outputs.empty()) {
+    fmt::format_to(result, "\n");
+    for (auto output : shaderData.outputs) {
+      fmt::format_to(result, "{}", make_output(output));
+    }
   }
-  fmt::format_to(result, "\n");
+
+  if (!shaderData.pushConstants.empty()) {
+    fmt::format_to(result, "\n");
+    fmt::format_to(result, "layout (push_constant) uniform PushBlock {{\n");
+    for (auto pushConstant : shaderData.pushConstants) {
+      fmt::format_to(result, "{}", make_push_constant(pushConstant));
+    }
+    fmt::format_to(result, "}} push;\n");
+  }
+
+  if (!shaderData.buffers.empty()) {
+    for (auto buffer : shaderData.buffers) {
+      fmt::format_to(result, "\n");
+      fmt::format_to(result, "{}", make_buffer(buffer));
+    }
+  }
+
+  if (!shaderData.images.empty()) {
+    fmt::format_to(result, "\n");
+    for (auto image : shaderData.images) {
+      fmt::format_to(result, "{}", make_image(image));
+    }
+  }
+
+  if (!shaderData.samplers.empty()) {
+    fmt::format_to(result, "\n");
+    for (auto sampler : shaderData.samplers) {
+      fmt::format_to(result, "{}", make_sampler(sampler));
+    }
+  }
 
   return fmt::to_string(result);
 }
