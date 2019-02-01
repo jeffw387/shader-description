@@ -25,7 +25,7 @@ inline constant_data constant_deserialize(nlohmann::json constantJson) {
   return result;
 }
 
-auto visit_glsl_type = [](auto glsl_variant) {
+constexpr auto visit_glsl_type = [](auto glsl_variant) {
   return fmt::format("{}", glsl_variant);
 };
 
@@ -37,7 +37,7 @@ inline std::string make_constant(constant_data constantData) {
   }
 
   return fmt::format(
-      "{}const {} {} = {};",
+      "{}const {} {} = {};\n",
       specIDFormat,
       constantData.typeName,
       constantData.constantName,

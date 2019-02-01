@@ -18,7 +18,7 @@ inline std::string make_sampler(sampler_data samplerData) {
     formattedCount = fmt::format("[{}]", samplerData.count);
   }
   return fmt::format(
-      "layout (set = {}, binding = {}) uniform sampler {}{};",
+      "layout (set = {}, binding = {}) uniform sampler {}{};\n",
       samplerData.set,
       samplerData.binding,
       samplerData.samplerName,

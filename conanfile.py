@@ -6,7 +6,7 @@ class JsonshaderConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
-    author = "Jeff Wright jeffw387@gmail.com"
+    author = "Jeff Wright <jeffw387@gmail.com>"
     requires = (
       "fmt/5.3.0@bincrafters/stable",
       "Catch2/2.5.0@catchorg/stable",
@@ -16,8 +16,18 @@ class JsonshaderConan(ConanFile):
       "vulkan-sdk/1.X.X@jeffw387/testing"
     )
     generators = "cmake"
+    exports_sources = "src/*"
+    exports = "CMakeLists.txt"
 
     def build(self):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+
+    def package(self):
+        self.copy("*.hpp", "./", "src")
+        self.copy("json-shader.*", "bin", keep_path=False)
+
+    def package_info(self):
+        self.cpp_info.includedirs = ["src"]
+        self.cpp_info.libdirs = ["bin"]

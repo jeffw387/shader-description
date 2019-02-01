@@ -128,6 +128,13 @@ inline std::string make_shader(shader_data shaderData) {
     }
   }
 
+  if (shaderData.stage == VK_SHADER_STAGE_VERTEX_BIT) {
+    fmt::format_to(result, "\n");
+    fmt::format_to(result, "out gl_PerVertex {{\n");
+    fmt::format_to(result, "  vec4 gl_Position;\n");
+    fmt::format_to(result, "}};");
+  }
+
   return fmt::to_string(result);
 }
 }  // namespace jshd
