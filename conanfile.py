@@ -26,8 +26,8 @@ class JsonshaderConan(ConanFile):
 
     def package(self):
         self.copy("*.hpp", "./", "src")
-        self.copy("json-shader.*", "bin", keep_path=False)
+        self.copy("json-shader.*", "bin", "bin", keep_path=False)
 
     def package_info(self):
         self.cpp_info.includedirs = ["src"]
-        self.cpp_info.libdirs = ["bin"]
+        self.cpp_info.bindirs = ["bin"]
