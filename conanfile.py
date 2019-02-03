@@ -2,7 +2,7 @@ from conans import ConanFile, tools, CMake
 
 class JsonshaderConan(ConanFile):
     name = "json-shader"
-    version = "0.0.1"
+    version = "0.0.2"
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
