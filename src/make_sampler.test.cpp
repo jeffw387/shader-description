@@ -5,7 +5,7 @@
 using json = nlohmann::json;
 TEST_CASE("Create a glsl sampler from json") {
   std::string expectedOutput{
-      "layout (set = 0, binding = 1) uniform sampler mySampler[2];"};
+      "layout (set = 0, binding = 1) uniform sampler mySampler[2];\n"};
   json j{json::parse(
       R"({
   "set": 0,

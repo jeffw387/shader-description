@@ -6,7 +6,7 @@ class JsonshaderConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
-    author = "Jeff Wright jeffw387@gmail.com"
+    author = "Jeff Wright <jeffw387@gmail.com>"
     exports = "CMakeLists.txt"
     exports_sources = "src/*"
     requires = (
@@ -25,4 +25,9 @@ class JsonshaderConan(ConanFile):
         cmake.build()
 
     def package(self):
-        
+        self.copy("*.hpp", "./", "src")
+        self.copy("json-shader.*", "bin", keep_path=False)
+
+    def package_info(self):
+        self.cpp_info.includedirs = ["src"]
+        self.cpp_info.libdirs = ["bin"]

@@ -13,6 +13,7 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_cmake_run(CONANFILE conanfile.py
                 BASIC_SETUP 
                 BUILD missing
+                PROFILE_AUTO
                 SETTINGS cppstd=17)
 
 add_subdirectory(src)

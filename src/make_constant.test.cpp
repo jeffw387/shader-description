@@ -6,7 +6,7 @@
 using json = nlohmann::json;
 TEST_CASE("Create a glsl string from json, check output") {
   std::string expectedOutput =
-      "layout (constant_id = 1) const uint lightCount = 3;";
+      "layout (constant_id = 1) const uint lightCount = 3;\n";
   json j{json::parse(
       R"({
   "constant_name": "lightCount",
@@ -20,7 +20,7 @@ TEST_CASE("Create a glsl string from json, check output") {
 }
 
 TEST_CASE("Create a plain constant glsl string from json, check output") {
-  std::string expectedOutput = "const uint myConst = 2;";
+  std::string expectedOutput = "const uint myConst = 2;\n";
   auto j = json::parse(
       R"({
       "constant_name": "myConst",
