@@ -2,7 +2,7 @@ from conans import ConanFile, tools, CMake
 
 class JsonshaderConan(ConanFile):
     name = "json-shader"
-    version = "0.0.2"
+    version = "0.0.5"
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
@@ -26,8 +26,11 @@ class JsonshaderConan(ConanFile):
 
     def package(self):
         self.copy("*.hpp", "./", "src")
-        self.copy("json-shader.*", "bin", keep_path=False)
+        self.copy("json-shader*", dst="bin", src="bin")
 
     def package_info(self):
         self.cpp_info.includedirs = ["src"]
         self.cpp_info.libdirs = ["bin"]
+
+    def deploy(self):
+        self.copy("json-shader*", dst="bin", src="bin")

@@ -61,23 +61,26 @@ int main(int argc, char* argv[]) {
       .show_positional_help();
   auto parseResult = options.parse(argc, argv);
   if (parseResult.arguments().empty()) {
+    fmt::print("No arguments found...");
     fmt::print(options.help());
     return 0;
   }
 
-  std::string inputPath;
+  std::string inputJsonPath;
   try {
-    inputPath = parseResult["input"].as<std::string>();
-  } catch (const std::exception&) {
+    inputJsonPath = parseResult["input-json"].as<std::string>();
+  } catch (const std::exception& e) {
+    fmt::print(std::cerr, "{}", e.what());
     fmt::print(options.help());
     return 0;
   }
-  std::string outputGLSL = parseResult["output"].as<std::string>();
+  std::string inputGLSLPath = parseResult["input-glsl"].as<std::string>();
+  std::string outputGLSLPath = parseResult["output"].as<std::string>();
 
-  auto shaderJson = load_json_file(inputPath);
-  auto glslOriginal = load_text_file(outputGLSL);
+  auto inputJson = load_json_file(inputJsonPath);
+  auto inputGLSL = load_text_file(inputGLSLPath);
 
-  auto generatedGLSL = generate_glsl_in_place(glslOriginal, shaderJson);
+  auto generatedGLSL = generate_glsl_in_place(inputGLSL, inputJson);
 
-  save_text_file(outputGLSL, generatedGLSL);
+  save_text_file(outputGLSLPath, generatedGLSL);
 }
