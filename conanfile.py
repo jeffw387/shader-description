@@ -2,11 +2,13 @@ from conans import ConanFile, tools, CMake
 
 class JsonshaderConan(ConanFile):
     name = "json-shader"
-    version = "0.0.1"
+    version = "0.0.5"
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
     author = "Jeff Wright <jeffw387@gmail.com>"
+    exports = "CMakeLists.txt"
+    exports_sources = "src/*"
     requires = (
       "fmt/5.3.0@bincrafters/stable",
       "Catch2/2.5.0@catchorg/stable",
@@ -16,8 +18,6 @@ class JsonshaderConan(ConanFile):
       "vulkan-sdk/1.X.X@jeffw387/testing"
     )
     generators = "cmake"
-    exports_sources = "src/*"
-    exports = "CMakeLists.txt"
 
     def build(self):
         cmake = CMake(self)
@@ -31,3 +31,6 @@ class JsonshaderConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = ["src"]
         self.cpp_info.bindirs = ["bin"]
+
+    def deploy(self):
+        self.copy("json-shader*", dst="bin", src="bin")
