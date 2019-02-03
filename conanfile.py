@@ -7,6 +7,8 @@ class JsonshaderConan(ConanFile):
     description = "<Description of Jsonshader here>"
     license = "MIT"
     author = "Jeff Wright jeffw387@gmail.com"
+    exports = "CMakeLists.txt"
+    exports_sources = "src/*"
     requires = (
       "fmt/5.3.0@bincrafters/stable",
       "Catch2/2.5.0@catchorg/stable",
@@ -21,3 +23,6 @@ class JsonshaderConan(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+
+    def package(self):
+        
