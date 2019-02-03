@@ -50,13 +50,15 @@ int main(int argc, char* argv[]) {
   cxxopts::Options options(
       "json-shader", "Pass in a json-encoded shader file, output glsl");
   options.add_options()(
-      "i, input", "Input json file", cxxopts::value<std::string>())(
+      "j, input-json", "Input json file", cxxopts::value<std::string>())(
+      "g, input-glsl", "Input glsl template", cxxopts::value<std::string>())(
       "o, output",
       "Output glsl file",
       cxxopts::value<std::string>()->default_value("output.glsl"));
 
-  options.parse_positional("input");
-  options.positional_help("<input>").show_positional_help();
+  options.parse_positional({"input-json", "input-glsl", "output"});
+  options.positional_help("<input-json> <input-glsl> <output-glsl>")
+      .show_positional_help();
   auto parseResult = options.parse(argc, argv);
   if (parseResult.arguments().empty()) {
     fmt::print(options.help());
