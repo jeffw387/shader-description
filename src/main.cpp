@@ -28,7 +28,7 @@ json load_json_file(std::string path) {
 }
 
 void save_text_file(std::string path, std::string_view fileContents) {
-  std::fstream o{path, std::ios::out | std::ios::trunc};
+  std::fstream o{path, std::ios_base::out | std::ios_base::trunc};
   o << fileContents;
 }
 
