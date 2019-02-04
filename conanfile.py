@@ -1,4 +1,5 @@
 from conans import ConanFile, tools, CMake
+import os
 
 class JsonshaderConan(ConanFile):
     name = "json-shader"
@@ -31,6 +32,7 @@ class JsonshaderConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = ["src"]
         self.cpp_info.bindirs = ["bin"]
+        self.env_info.path.append(os.path.join(self.package_folder, "bin"))
 
     def deploy(self):
         self.copy("json-shader*", dst="bin", src="bin")
