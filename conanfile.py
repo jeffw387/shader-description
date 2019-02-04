@@ -3,7 +3,7 @@ import os
 
 class JsonshaderConan(ConanFile):
     name = "json-shader"
-    version = "0.0.8"
+    version = "0.0.9"
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
@@ -29,7 +29,7 @@ class JsonshaderConan(ConanFile):
         self.copy("json-shader*", "bin", "bin", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.includedirs = ["src"]
+        self.cpp_info.includedirs = ["./"]
         self.cpp_info.bindirs = ["bin"]
         self.env_info.path.append(os.path.join(self.package_folder, "bin"))
 
