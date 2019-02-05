@@ -1,2 +1,8 @@
 # pass package version as argument 1
-conan create . jeffw387/testing && conan alias json-shader/latest@jeffw387/testing json-shader/$1@jeffw387/testing
+ALIAS=json-shader/latest
+TARGET=json-shader/$1
+NS=jeffw387/testing
+conan create . $NS
+conan alias $ALIAS@$NS $TARGET@$NS
+conan upload "$TARGET@$NS" -r jeffw --all --confirm
+conan upload "$ALIAS@$NS" -r jeffw --all --confirm
