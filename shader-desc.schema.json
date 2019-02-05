@@ -218,15 +218,18 @@
           "sampler_name": {
             "type": "string"
           },
-          "sampler_count": {
-            "type": "number"
+          "sampler_infos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/sampler_info"
+            }
           }
         },
         "required": [
           "set",
           "binding",
           "sampler_name",
-          "sampler_count"
+          "sampler_infos"
         ]
       }
     },
@@ -346,6 +349,147 @@
         "mat2",
         "mat3",
         "mat4"
+      ]
+    },
+    "filter": {
+      "enum": [
+        "nearest",
+        "linear",
+        "cubic_img"
+      ]
+    },
+    "mipmap_mode": {
+      "enum": [
+        "nearest",
+        "linear"
+      ]
+    },
+    "address_mode": {
+      "enum": [
+        "repeat",
+        "mirrored_repeat",
+        "clamp_to_edge",
+        "clamp_to_border",
+        "mirror_clamp_to_edge"
+      ]
+    },
+    "compare_op": {
+      "enum": [
+        "never",
+        "<",
+        "<=",
+        ">",
+        "!=",
+        ">=",
+        "always"
+      ]
+    },
+    "border_color": {
+      "enum": [
+        "float_transparent_black",
+        "int_transparent_black",
+        "float_opaque_black",
+        "int_opaque_black",
+        "float_opaque_white",
+        "int_opaque_white"
+      ]
+    },
+    "sampler_info": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "properties": {
+            "mag": {
+              "$ref": "#/definitions/filter"
+            },
+            "min": {
+              "$ref": "#/definitions/filter"
+            }
+          },
+          "required": [
+            "mag",
+            "min"
+          ]
+        },
+        "mipmap_mode": {
+          "$ref": "#/definitions/mipmap_mode"
+        },
+        "address_modes": {
+          "properties": {
+            "u": {
+              "$ref": "#/definitions/address_mode"
+            },
+            "v": {
+              "$ref": "#/definitions/address_mode"
+            },
+            "w": {
+              "$ref": "#/definitions/address_mode"
+            }
+          },
+          "required": [
+            "u",
+            "v",
+            "w"
+          ]
+        },
+        "mip_lod_bias": {
+          "type": "number"
+        },
+        "anistropy": {
+          "properties": {
+            "enable": {
+              "type": "boolean"
+            },
+            "max": {
+              "type": "number"
+            }
+          }
+        },
+        "compare": {
+          "properties": {
+            "enable": {
+              "type": "boolean"
+            },
+            "op": {
+              "$ref": "#/definitions/compare_op"
+            }
+          },
+          "required": [
+            "enable",
+            "op"
+          ]
+        },
+        "lod": {
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "min",
+            "max"
+          ]
+        },
+        "border_color": {
+          "$ref": "#/definitions/border_color"
+        },
+        "unnormalized_coordinates": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "filters",
+        "mipmap_mode",
+        "address_modes",
+        "mip_lod_bias",
+        "anistropy",
+        "compare",
+        "lod",
+        "border_color",
+        "unnormalized_coordinates"
       ]
     }
   }
