@@ -20,6 +20,7 @@ struct buffer_data {
   uint32_t set;
   uint32_t binding;
   buffer_type bufferType;
+  bool dynamic;
   std::string blockName;
   std::string instanceName;
   std::vector<member_data> members;
@@ -77,6 +78,7 @@ inline buffer_data buffer_deserialize(nlohmann::json bufferBlockJson) {
   result.blockName = bufferBlockJson["block_name"];
   result.instanceName = bufferBlockJson["instance_name"];
   result.bufferType = from_string(bufferBlockJson["buffer_type"]);
+  result.dynamic = bufferBlockJson["dynamic"];
   for (const auto& member : bufferBlockJson["members"]) {
     auto typeName = member["member_type"];
     std::optional<uint32_t> countOptional;
