@@ -3,7 +3,7 @@ import os
 
 class JsonshaderConan(ConanFile):
     name = "json-shader"
-    version = "0.0.11"
+    version = "0.0.12"
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
