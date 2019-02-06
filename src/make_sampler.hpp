@@ -88,6 +88,24 @@ constexpr VkCompareOp make_compare_op(std::string_view name) {
   }
 }
 
+constexpr auto make_border_color(std::string_view name) {
+  switch(hash(name)) {
+    default:
+    case hash("float_transparent_black"):
+      return VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK;
+    case hash("int_transparent_black"):
+      return VK_BORDER_COLOR_INT_TRANSPARENT_BLACK;
+    case hash("float_opaque_black"):
+      return VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK;
+    case hash("int_opaque_black"):
+      return VK_BORDER_COLOR_INT_OPAQUE_BLACK;
+    case hash("float_opaque_white"):
+      return VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
+    case hash("int_opaque_white"):
+      return VK_BORDER_COLOR_INT_OPAQUE_WHITE;
+  }
+}
+
 inline sampler_data sampler_deserialize(nlohmann::json samplerJson) {
   sampler_data result{};
   result.set = samplerJson["set"];
