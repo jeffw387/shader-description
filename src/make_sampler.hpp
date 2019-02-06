@@ -127,6 +127,11 @@ inline sampler_data sampler_deserialize(nlohmann::json samplerJson) {
       info.maxAnisotropy = sampler["anisotropy"]["max"];
       info.compareEnable = sampler["compare"]["enable"];
       info.compareOp = make_compare_op(sampler["compare"]["op"]);
+      info.minLod = sampler["lod"]["min"];
+      info.maxLod = sampler["lod"]["max"];
+      info.borderColor = make_border_color(sampler["border_color"]);
+      info.unnormalizedCoordinates = sampler["unnormalized_coordinates"];
+      result.immutableSamplers.push_back(std::move(info));
     }
   }
   return result;
