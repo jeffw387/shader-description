@@ -41,7 +41,7 @@ constexpr VkFilter make_filter(std::string_view name) {
   }
 }
 
-constexpr VkSamplerMipmapMode make_mipmap_mode(std:;string_view name) {
+constexpr VkSamplerMipmapMode make_mipmap_mode(std::string_view name) {
   switch (hash(name)) {
     default:
     case hash("nearest"):
