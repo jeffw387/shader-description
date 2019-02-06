@@ -218,6 +218,9 @@
           "sampler_name": {
             "type": "string"
           },
+          "immutable": {
+            "type": "boolean"
+          },
           "sampler_infos": {
             "type": "array",
             "items": {
@@ -229,6 +232,7 @@
           "set",
           "binding",
           "sampler_name",
+          "immutable",
           "sampler_infos"
         ]
       }

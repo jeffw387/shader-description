@@ -3,7 +3,6 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <string_view>
-#include <optional>
 #include <vector>
 #include <vulkan/vulkan.h>
 #include "compile_hash.hpp"
@@ -13,13 +12,14 @@ struct sampler_data {
   uint32_t set;
   uint32_t binding;
   std::string samplerName;
-  std::vector<std::optional<VkSamplerCreateInfo>> immutableSamplers;
+  bool immutable;
+  std::vector<VkSamplerCreateInfo> samplerInfos;
 };
 
 inline std::string make_sampler(sampler_data samplerData) {
   std::string formattedCount;
-  if (samplerData.immutableSamplers.size() > 1) {
-    formattedCount = fmt::format("[{}]", samplerData.immutableSamplers.size());
+  if (samplerData.samplerInfos.size() > 1) {
+    formattedCount = fmt::format("[{}]", samplerData.samplerInfos.size());
   }
   return fmt::format(
       "layout (set = {}, binding = {}) uniform sampler {}{};\n",
@@ -111,10 +111,8 @@ inline sampler_data sampler_deserialize(nlohmann::json samplerJson) {
   result.set = samplerJson["set"];
   result.binding = samplerJson["binding"];
   result.samplerName = samplerJson["sampler_name"];
-  for (auto sampler : samplerJson["sampler_infos"]) {
-    if (sampler.is_null()) {
-      result.immutableSamplers.push_back({});
-    } else {
+  if ((result.immutable = samplerJson["immutable"])) {
+    for (auto sampler : samplerJson["sampler_infos"]) {
       VkSamplerCreateInfo info{VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO};
       info.magFilter = make_filter(sampler["filters"]["mag"]);
       info.minFilter = make_filter(sampler["filters"]["min"]);
@@ -131,7 +129,7 @@ inline sampler_data sampler_deserialize(nlohmann::json samplerJson) {
       info.maxLod = sampler["lod"]["max"];
       info.borderColor = make_border_color(sampler["border_color"]);
       info.unnormalizedCoordinates = sampler["unnormalized_coordinates"];
-      result.immutableSamplers.push_back(std::move(info));
+      result.samplerInfos.push_back(std::move(info));
     }
   }
   return result;
