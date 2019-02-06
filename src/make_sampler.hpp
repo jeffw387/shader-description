@@ -18,8 +18,8 @@ struct sampler_data {
 
 inline std::string make_sampler(sampler_data samplerData) {
   std::string formattedCount;
-  if (samplerData.count > 1) {
-    formattedCount = fmt::format("[{}]", samplerData.count);
+  if (samplerData.immutableSamplers.size() > 1) {
+    formattedCount = fmt::format("[{}]", samplerData.immutableSamplers.size());
   }
   return fmt::format(
       "layout (set = {}, binding = {}) uniform sampler {}{};\n",
