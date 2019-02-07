@@ -1,6 +1,7 @@
-# pass package version as argument 1
+VERSION=$(<.version)
+echo "$VERSION"
 ALIAS=json-shader/latest
-TARGET=json-shader/$1
+TARGET=json-shader/$VERSION
 NS=jeffw387/testing
 conan create . $NS
 conan alias $ALIAS@$NS $TARGET@$NS
