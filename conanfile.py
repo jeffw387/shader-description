@@ -3,12 +3,14 @@ import os
 
 class JsonshaderConan(ConanFile):
     name = "json-shader"
-    version = "0.0.12"
+    versionfile = open(".version")
+    version = versionfile.read()
+    versionfile.close()
     settings = "os", "compiler", "build_type", "arch", "cppstd"
     description = "<Description of Jsonshader here>"
     license = "MIT"
     author = "Jeff Wright <jeffw387@gmail.com>"
-    exports = "CMakeLists.txt"
+    exports = "CMakeLists.txt", ".version"
     exports_sources = "src/*"
     requires = (
       "fmt/5.3.0@bincrafters/stable",
