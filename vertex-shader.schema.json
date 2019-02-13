@@ -5,28 +5,52 @@
   "type": "object",
   "properties": {
     "inputs": {
-      "$ref": "vertex-input.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "vertex-input.schema.json"
+      }
     },
     "outputs": {
-      "$ref": "vertex-output.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "vertex-output.schema.json"
+      }
     },
     "buffers": {
-      "$ref": "buffer.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "buffer.schema.json"
+      }
     },
     "images": {
-      "$ref": "image.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "image.schema.json"
+      }
     },
     "samplers": {
-      "$ref": "sampler.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "sampler.schema.json"
+      }
     },
     "input_attachments": {
-      "$ref": "input-attachment.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "input-attachment.schema.json"
+      }
     },
     "push_constants": {
-      "$ref": "push-constant.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "push-constant.schema.json"
+      }
     },
     "constants": {
-      "$ref": "constant.schema.json"
+      "type": "array",
+      "items": {
+        "$ref": "constant.schema.json"
+      }
     }
   }
 }
