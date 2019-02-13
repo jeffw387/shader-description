@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jw387.com/schemas/vertex-shader.schema.json",
+  "title": "Vertex shader description",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "$ref": "vertex-input.schema.json"
+    },
+    "outputs": {
+      "$ref": "vertex-output.schema.json"
+    },
+    "buffers": {
+      "$ref": "buffer.schema.json"
+    },
+    "images": {
+      "$ref": "image.schema.json"
+    },
+    "samplers": {
+      "$ref": "sampler.schema.json"
+    },
+    "input_attachments": {
+      "$ref": "input-attachment.schema.json"
+    },
+    "push_constants": {
+      "$ref": "push-constant.schema.json"
+    },
+    "constants": {
+      "$ref": "constant.schema.json"
+    }
+  }
+}
