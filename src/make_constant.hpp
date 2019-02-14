@@ -16,12 +16,13 @@ struct constant_data {
 inline constant_data constant_deserialize(nlohmann::json constantJson) {
   constant_data result{};
   result.constantName = constantJson["constant_name"];
-  result.typeName = constantJson["glsl_type"];
+  result.typeName = constantJson["glsl_type"]["type"];
   result.glslType =
-      make_glsl_type(result.typeName, constantJson["constant_value"]);
-  if (constantJson.find("specialization_id") != constantJson.end()) {
+      make_glsl_type(result.typeName, constantJson["glsl_type"]["value"]);
+  try {
     result.specializationID = constantJson["specialization_id"];
   }
+  catch (const std::exception& e) {}
   return result;
 }
 
