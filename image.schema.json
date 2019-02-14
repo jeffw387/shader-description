@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jw387.com/schemas/image.schema.json",
+  "type": "object",
+  "properties": {
+    "binding": {
+      "type": "number"
+    },
+    "set": {
+      "type": "number"
+    },
+    "image_name": {
+      "type": "string"
+    },
+    "image_type": {
+      "$ref": "image-type.schema.json"
+    },
+    "image_count": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "binding",
+    "set",
+    "image_name",
+    "image_type",
+    "image_count"
+  ]
+}

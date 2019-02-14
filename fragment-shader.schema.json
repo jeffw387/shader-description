@@ -1,19 +1,19 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://jw387.com/schemas/vertex-shader.schema.json",
-  "title": "Vertex shader description",
+  "$id": "http://jw387.com/schemas/fragment-shader.schema.json",
+  "title": "Fragment shader description",
   "type": "object",
   "properties": {
     "inputs": {
       "type": "array",
       "items": {
-        "$ref": "vertex-input.schema.json"
+        "$ref": "fragment-input.schema.json"
       }
     },
     "outputs": {
       "type": "array",
       "items": {
-        "$ref": "vertex-output.schema.json"
+        "$ref": "fragment-output.schema.json"
       }
     },
     "buffers": {

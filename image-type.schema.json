@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jw387.com/schemas/image-type.schema.json",
+  "enum": [
+    "texture1D",
+    "texture2D",
+    "texture3D",
+    "texture1DArray",
+    "texture2DArray",
+    "texture2DMS",
+    "texture2DMSArray",
+    "subpassInput",
+    "subpassInputMS",
+    "itexture1D",
+    "itexture2D",
+    "itexture3D",
+    "itexture1DArray",
+    "itexture2DArray",
+    "itexture2DMS",
+    "itexture2DMSArray",
+    "isubpassInput",
+    "isubpassInputMS",
+    "utexture1D",
+    "utexture2D",
+    "utexture3D",
+    "utexture1DArray",
+    "utexture2DArray",
+    "utexture2DMS",
+    "utexture2DMSArray",
+    "usubpassInput",
+    "usubpassInputMS"
+  ]
+}

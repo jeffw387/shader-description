@@ -1,0 +1,52 @@
+{
+  "$schema": "http://jw387.com/schemas/vertex-shader.schema.json",
+  "inputs": [
+    {
+      "binding": 0,
+      "glsl_type": {
+        "type": "vec2"
+      },
+      "input_name": "pos",
+      "location": 0,
+      "offset": 0
+    },
+    {
+      "binding": 1,
+      "glsl_type": {
+        "type": "vec2"
+      },
+      "input_name": "uv",
+      "location": 1,
+      "offset": 8
+    }
+  ],
+  "outputs": [
+    {
+      "output_name": "uv",
+      "glsl_type": {
+        "type": "vec2"
+      },
+      "location": 0,
+      "modifiers": []
+    }
+  ],
+  "buffers": [
+    {
+      "binding": 0,
+      "set": 0,
+      "buffer_type": "uniform",
+      "dynamic": true,
+      "block_name": "InstanceBlock",
+      "instance_name": "instance",
+      "members": [
+        {
+          "member_type": {
+            "type": "mat4"
+          },
+          "member_name": "mvp",
+          "member_count": 1
+        }
+      ]
+    }
+  ]
+}
