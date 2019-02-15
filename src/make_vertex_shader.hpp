@@ -32,37 +32,37 @@ inline vertex_shader_data vertex_shader_deserialize(nlohmann::json j) {
     for (auto constant : j["constants"]) {
     auto constantData = constant_deserialize(constant);
     result.constants.push_back(std::move(constantData));
-  } catch (const std::exception& e) {}
+  }} catch (const std::exception& e) {}
   try {
     for (auto input : j["inputs"]) {
-    auto inputData = fragment_input_deserialize(input);
+    auto inputData = vertex_input_deserialize(input);
     result.inputs.push_back(std::move(inputData));
-  } catch (const std::exception& e) {}
+  }} catch (const std::exception& e) {}
   try {
     for (auto output : j["outputs"]) {
-    auto outputData = fragment_output_deserialize(output);
+    auto outputData = vertex_output_deserialize(output);
     result.outputs.push_back(std::move(outputData));
-  } catch (const std::exception& e) {}
+  }} catch (const std::exception& e) {}
   try {
     for (auto pushConstant : j["push_constants"]) {
     auto pushConstantData = push_constant_deserialize(pushConstant);
     result.pushConstants.push_back(std::move(pushConstantData));
-  } catch (const std::exception& e) {}
+  }} catch (const std::exception& e) {}
   try {
     for (auto buffer : j["buffers"]) {
     auto bufferData = buffer_deserialize(buffer);
     result.buffers.push_back(std::move(bufferData));
-  } catch (const std::exception& e) {}
+  }} catch (const std::exception& e) {}
   try {
     for (auto image : j["images"]) {
     auto imageData = image_deserialize(image);
     result.images.push_back(std::move(imageData));
-  } catch (const std::exception& e) {}
+  }} catch (const std::exception& e) {}
   try {
     for (auto sampler : j["samplers"]) {
     auto samplerData = sampler_deserialize(sampler);
     result.samplers.push_back(std::move(samplerData));
-  } catch (const std::exception& e) {}
+  }} catch (const std::exception& e) {}
   return result;
 }
 
@@ -79,14 +79,14 @@ inline std::string make_vertex_shader(vertex_shader_data shaderData) {
   if (!shaderData.inputs.empty()) {
     fmt::format_to(result, "\n");
     for (auto input : shaderData.inputs) {
-      fmt::format_to(result, "{}", make_input(input));
+      fmt::format_to(result, "{}", make_vertex_input(input));
     }
   }
 
   if (!shaderData.outputs.empty()) {
     fmt::format_to(result, "\n");
     for (auto output : shaderData.outputs) {
-      fmt::format_to(result, "{}", make_output(output));
+      fmt::format_to(result, "{}", make_vertex_output(output));
     }
   }
 

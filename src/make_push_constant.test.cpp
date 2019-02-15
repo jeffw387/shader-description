@@ -9,7 +9,7 @@ TEST_CASE("Create a push constant glsl string from json, check output") {
   auto j = json::parse(
       R"({
       "constant_name": "mvp",
-      "glsl_type": "mat4",
+      "glsl_type": { "type": "mat4" },
       "offset": 0
     })");
   auto pushConstantData = jshd::push_constant_deserialize(j);

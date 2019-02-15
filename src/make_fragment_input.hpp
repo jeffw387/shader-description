@@ -31,7 +31,7 @@ inline std::string make_fragment_input(fragment_input_data inputData) {
 inline fragment_input_data fragment_input_deserialize(json inputJson) {
   fragment_input_data result{};
   result.inputName = inputJson["input_name"];
-  std::string typeName = inputJson["glsl_type"];
+  std::string typeName = inputJson["glsl_type"]["type"];
   result.inputType = make_glsl_type(typeName);
   result.inputTypeName = std::move(typeName);
   result.location = inputJson["location"];

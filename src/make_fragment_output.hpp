@@ -25,7 +25,7 @@ inline std::string make_fragment_output(fragment_output_data outputData) {
 inline fragment_output_data fragment_output_deserialize(json outputJson) {
   fragment_output_data result{};
   result.outputName = outputJson["output_name"];
-  std::string typeName = outputJson["glsl_type"];
+  std::string typeName = outputJson["glsl_type"]["type"];
   result.outputType = make_glsl_type(typeName);
   result.outputTypeName = std::move(typeName);
   result.location = outputJson["location"];

@@ -24,7 +24,7 @@ inline std::string make_vertex_output(vertex_output_data outputData) {
   return fmt::format(
       "layout (location = {}) out {}{} {};\n",
       outputData.location,
-      modifierBuffer,
+      fmt::to_string(modifierBuffer),
       outputData.outputTypeName,
       outputData.outputName);
 }
@@ -32,7 +32,7 @@ inline std::string make_vertex_output(vertex_output_data outputData) {
 inline vertex_output_data vertex_output_deserialize(json outputJson) {
   vertex_output_data result{};
   result.outputName = outputJson["output_name"];
-  std::string typeName = outputJson["glsl_type"];
+  std::string typeName = outputJson["glsl_type"]["type"];
   result.outputType = make_glsl_type(typeName);
   result.outputTypeName = std::move(typeName);
   result.location = outputJson["location"];

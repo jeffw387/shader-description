@@ -13,26 +13,32 @@ set(common-headers
   split_view.hpp
   compile_hash.hpp
   glsl_type.hpp
-  buffer_block.hpp
+  buffer.hpp
   make_buffer.hpp 
-  make_input.hpp
-  make_output.hpp
+  make_vertex_input.hpp
+  make_fragment_input.hpp
+  make_vertex_output.hpp
+  make_fragment_output.hpp
   make_image.hpp
   make_sampler.hpp
   make_constant.hpp
   make_push_constant.hpp
-  make_shader.hpp
+  make_vertex_shader.hpp
+  make_fragment_shader.hpp
   )
 target_sources(json-shader PUBLIC ${common-headers})
 target_sources(json-shader-tests PUBLIC 
   ${common-headers} 
   split_view.test.cpp 
   make_buffer.test.cpp
-  make_input.test.cpp
-  make_output.test.cpp
+  make_vertex_input.test.cpp
+  make_fragment_input.test.cpp
+  make_vertex_output.test.cpp
+  make_fragment_output.test.cpp
   make_image.test.cpp
   make_sampler.test.cpp
   make_constant.test.cpp
   make_push_constant.test.cpp
-  make_shader.test.cpp
+  make_vertex_shader.test.cpp
+  make_fragment_shader.test.cpp
   )

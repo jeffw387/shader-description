@@ -27,7 +27,7 @@ inline std::string make_vertex_input(vertex_input_data inputData) {
 inline vertex_input_data vertex_input_deserialize(json inputJson) {
   vertex_input_data result{};
   result.inputName = inputJson["input_name"];
-  std::string typeName = inputJson["glsl_type"];
+  std::string typeName = inputJson["glsl_type"]["type"];
   result.inputType = make_glsl_type(typeName);
   result.inputTypeName = std::move(typeName);
   result.location = inputJson["location"];

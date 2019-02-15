@@ -16,7 +16,7 @@ inline push_constant_data push_constant_deserialize(nlohmann::json j) {
   push_constant_data result{};
   result.constantName = j["constant_name"];
   result.typeName = j["glsl_type"]["type"];
-  result.glslType = make_glsl_type(result.typeName, j["glsl_type"]["value"]);
+  result.glslType = make_glsl_type(result.typeName);
   result.offset = j["offset"];
   return result;
 }

@@ -131,7 +131,10 @@ inline sampler_data sampler_deserialize(nlohmann::json samplerJson) {
       info.unnormalizedCoordinates = sampler["unnormalized_coordinates"];
       result.samplerInfos.push_back(std::move(info));
     }
+  } else {
+    result.samplerInfos.resize(samplerJson["sampler_infos"].size());
   }
+  
   return result;
 }
 }  // namespace jshd

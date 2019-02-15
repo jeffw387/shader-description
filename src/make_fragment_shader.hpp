@@ -29,34 +29,41 @@ struct fragment_shader_data {
 inline fragment_shader_data fragment_shader_deserialize(nlohmann::json j) {
   fragment_shader_data result{};
   
-  for (auto constant : j["constants"]) {
+  try {
+    for (auto constant : j["constants"]) {
     auto constantData = constant_deserialize(constant);
     result.constants.push_back(std::move(constantData));
-  }
-  for (auto input : j["inputs"]) {
-    auto inputData = input_deserialize(input);
+  }} catch (const std::exception& e) {}
+  try {
+    for (auto input : j["inputs"]) {
+    auto inputData = fragment_input_deserialize(input);
     result.inputs.push_back(std::move(inputData));
-  }
-  for (auto output : j["outputs"]) {
-    auto outputData = output_deserialize(output);
+  }} catch (const std::exception& e) {}
+  try {
+    for (auto output : j["outputs"]) {
+    auto outputData = fragment_output_deserialize(output);
     result.outputs.push_back(std::move(outputData));
-  }
-  for (auto pushConstant : j["push_constants"]) {
+  }} catch (const std::exception& e) {}
+  try {
+    for (auto pushConstant : j["push_constants"]) {
     auto pushConstantData = push_constant_deserialize(pushConstant);
     result.pushConstants.push_back(std::move(pushConstantData));
-  }
-  for (auto buffer : j["buffers"]) {
+  }} catch (const std::exception& e) {}
+  try {
+    for (auto buffer : j["buffers"]) {
     auto bufferData = buffer_deserialize(buffer);
     result.buffers.push_back(std::move(bufferData));
-  }
-  for (auto image : j["images"]) {
+  }} catch (const std::exception& e) {}
+  try {
+    for (auto image : j["images"]) {
     auto imageData = image_deserialize(image);
     result.images.push_back(std::move(imageData));
-  }
-  for (auto sampler : j["samplers"]) {
+  }} catch (const std::exception& e) {}
+  try {
+    for (auto sampler : j["samplers"]) {
     auto samplerData = sampler_deserialize(sampler);
     result.samplers.push_back(std::move(samplerData));
-  }
+  }} catch (const std::exception& e) {}
   return result;
 }
 
@@ -73,14 +80,14 @@ inline std::string make_fragment_shader(fragment_shader_data shaderData) {
   if (!shaderData.inputs.empty()) {
     fmt::format_to(result, "\n");
     for (auto input : shaderData.inputs) {
-      fmt::format_to(result, "{}", make_input(input));
+      fmt::format_to(result, "{}", make_fragment_input(input));
     }
   }
 
   if (!shaderData.outputs.empty()) {
     fmt::format_to(result, "\n");
     for (auto output : shaderData.outputs) {
-      fmt::format_to(result, "{}", make_output(output));
+      fmt::format_to(result, "{}", make_fragment_output(output));
     }
   }
 

@@ -5,7 +5,7 @@
 #include <string>
 #include <string_view>
 #include <optional>
-#include "buffer_block.hpp"
+#include "buffer.hpp"
 
 using namespace fmt::literals;
 namespace jshd {

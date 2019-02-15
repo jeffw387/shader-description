@@ -10,9 +10,8 @@ TEST_CASE("Create a glsl string from json, check output") {
   json j{json::parse(
       R"({
   "constant_name": "lightCount",
-  "constant_value": 3,
   "specialization_id": 1,
-  "glsl_type": "uint"
+  "glsl_type": { "type": "uint", "value": 3 }
   })")};
   auto constantData = jshd::constant_deserialize(j);
   auto result = jshd::make_constant(constantData);
@@ -24,8 +23,7 @@ TEST_CASE("Create a plain constant glsl string from json, check output") {
   auto j = json::parse(
       R"({
       "constant_name": "myConst",
-      "constant_value": 2,
-      "glsl_type": "uint"
+      "glsl_type": { "type": "uint", "value": 2 }
       })");
   auto constantData = jshd::constant_deserialize(j);
   auto result = jshd::make_constant(constantData);

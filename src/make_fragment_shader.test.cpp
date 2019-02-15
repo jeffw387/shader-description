@@ -1,14 +1,13 @@
-#include "make_shader.hpp"
+#include "make_fragment_shader.hpp"
 #include <catch2/catch.hpp>
 #include <nlohmann/json.hpp>
 #include <string>
 
 using json = nlohmann::json;
-TEST_CASE("Create glsl shader from json. Check output.") {
+TEST_CASE("Create fragment shader from json. Check output.") {
   std::string expectedOutput{
       // clang-format off
-R"(#version 450 core
-
+R"(
 const uint someConstant = 2;
 
 layout (location = 0) out vec4 outColor;
@@ -38,40 +37,43 @@ layout (set = 1, binding = 1) uniform sampler imgSampler;
   json j{json::parse(
       // clang-format off
 R"({
-  "shader_stage": "Fragment",
   "constants": [
     {
       "constant_name": "someConstant",
-      "glsl_type": "uint",
-      "constant_value": 2
+      "glsl_type": {
+        "type": "uint",
+        "value": 2
+      }
     }
   ],
   "inputs": [],
   "outputs": [
     {
       "output_name": "outColor",
-      "glsl_type": "vec4",
+      "glsl_type": {
+        "type": "vec4"
+      },
       "location": 0
     }
   ],
   "push_constants": [
     {
       "constant_name": "push0",
-      "glsl_type": "vec3",
+      "glsl_type": { "type": "vec3" },
       "offset": 0
     },
     {
       "constant_name": "push1",
-      "glsl_type": "float",
+      "glsl_type": { "type": "float" },
       "offset": 16
     },
     {
       "constant_name": "push2",
-      "glsl_type": "vec4",
+      "glsl_type": { "type": "vec4" },
       "offset": 32
     }
   ],
-  "buffer_blocks": [
+  "buffers": [
     {
       "block_name": "UniformBlock",
       "instance_name": "uniforms",
@@ -121,7 +123,8 @@ R"({
       "binding": 1,
       "set": 1,
       "sampler_name": "imgSampler",
-      "sampler_count": 1
+      "immutable": false,
+      "sampler_infos": [null]
     }
   ]
 }
@@ -129,7 +132,7 @@ R"({
       // clang-format on
       )};
 
-  auto shaderData = jshd::shader_deserialize(j);
-  auto result = jshd::make_shader(shaderData);
+  auto shaderData = jshd::fragment_shader_deserialize(j);
+  auto result = jshd::make_fragment_shader(shaderData);
   REQUIRE(result == expectedOutput);
 }
