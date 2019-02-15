@@ -3,3 +3,4 @@ build/
 .vs/
 install.log
 build.log
+test.log
