@@ -4,18 +4,29 @@
   "type": "object",
   "properties": {
     "binding": {
+      "title": "Binding number",
+      "description": "sampler binding number",
       "type": "number"
     },
     "set": {
+      "title": "Set number",
+      "description": "descriptor set number to link glsl set to vulkan",
       "type": "number"
     },
     "sampler_name": {
+      "title": "Sampler Name",
+      "description": "Name for the sampler descriptor set in glsl shader",
       "type": "string"
     },
     "immutable": {
-      "type": "boolean"
+      "title": "Enable immutable samplers",
+      "description": "If true, sampler_infos must contain sampler_count descriptions",
+      "type": "boolean",
+      "default": false
     },
     "sampler_infos": {
+      "title": "Array of sampler descriptions",
+      "description": "if immutable is true, this should contain info for each sampler",
       "type": "array",
       "items": {
         "$ref": "#/definitions/sampler_info"
